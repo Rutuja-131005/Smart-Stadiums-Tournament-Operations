@@ -1,0 +1,347 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   DESIGN SYSTEM — Smart Stadiums Enterprise
+   ============================================ */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply font-display antialiased;
+    @apply bg-surface text-text-primary;
+  }
+
+  /* Dark mode is default — light mode overrides */
+  .light body,
+  :root:not(.dark) body {
+    @apply bg-gray-50 text-gray-900;
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-border rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-border-light;
+  }
+
+  /* Focus visible ring — WCAG compliance */
+  *:focus-visible {
+    @apply outline-2 outline-offset-2 outline-accent;
+  }
+}
+
+@layer components {
+
+  /* ===================
+     BUTTONS
+     =================== */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2
+           bg-accent hover:bg-accent-hover text-surface font-semibold
+           px-5 py-2.5 rounded-xl
+           transition-all duration-200
+           focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-surface
+           disabled:opacity-50 disabled:cursor-not-allowed
+           shadow-sm hover:shadow-glow;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2
+           bg-surface-card hover:bg-surface-elevated
+           text-text-primary font-medium
+           px-5 py-2.5 rounded-xl
+           border border-border hover:border-border-light
+           transition-all duration-200
+           focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 focus:ring-offset-surface
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  .btn-danger {
+    @apply inline-flex items-center justify-center gap-2
+           bg-danger hover:bg-red-600 text-white font-semibold
+           px-5 py-2.5 rounded-xl
+           transition-all duration-200
+           focus:outline-none focus:ring-2 focus:ring-danger focus:ring-offset-2 focus:ring-offset-surface
+           disabled:opacity-50 disabled:cursor-not-allowed
+           shadow-sm hover:shadow-glow-red;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2
+           text-text-secondary hover:text-text-primary hover:bg-surface-card
+           px-3 py-2 rounded-xl
+           transition-all duration-200
+           focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-surface;
+  }
+  .btn-icon {
+    @apply inline-flex items-center justify-center
+           w-10 h-10 rounded-xl
+           text-text-secondary hover:text-text-primary
+           hover:bg-surface-card
+           transition-all duration-200
+           focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-surface;
+  }
+
+  /* Light mode button overrides */
+  :root:not(.dark) .btn-primary {
+    @apply bg-blue-600 hover:bg-blue-700 text-white focus:ring-blue-500 focus:ring-offset-white;
+  }
+  :root:not(.dark) .btn-secondary {
+    @apply bg-white hover:bg-gray-50 text-gray-900 border-gray-300 hover:border-gray-400 focus:ring-offset-white;
+  }
+  :root:not(.dark) .btn-ghost {
+    @apply text-gray-600 hover:text-gray-900 hover:bg-gray-100 focus:ring-offset-white;
+  }
+  :root:not(.dark) .btn-icon {
+    @apply text-gray-500 hover:text-gray-900 hover:bg-gray-100 focus:ring-offset-white;
+  }
+
+  /* ===================
+     CARDS
+     =================== */
+  .card {
+    @apply bg-surface-card rounded-2xl
+           border border-border
+           p-6
+           transition-all duration-300;
+  }
+  .card-hover {
+    @apply card hover:border-border-light hover:shadow-card-hover hover:-translate-y-0.5;
+  }
+  .card-glass {
+    @apply rounded-2xl p-6
+           bg-white/5 backdrop-blur-glass
+           border border-white/10
+           shadow-glass
+           transition-all duration-300;
+  }
+  .card-accent {
+    @apply card border-accent/30 bg-accent-muted;
+  }
+
+  /* Light mode card overrides */
+  :root:not(.dark) .card {
+    @apply bg-white border-gray-200 shadow-sm;
+  }
+  :root:not(.dark) .card-hover {
+    @apply hover:shadow-lg hover:border-gray-300;
+  }
+  :root:not(.dark) .card-glass {
+    @apply bg-white/70 border-gray-200/50;
+  }
+
+  /* ===================
+     FORM INPUTS
+     =================== */
+  .input-field {
+    @apply w-full px-4 py-2.5 rounded-xl
+           bg-surface-secondary border border-border
+           text-text-primary placeholder-text-muted
+           focus:ring-2 focus:ring-accent focus:border-accent
+           outline-none
+           transition-all duration-200;
+  }
+
+  :root:not(.dark) .input-field {
+    @apply bg-white border-gray-300 text-gray-900 placeholder-gray-400
+           focus:ring-blue-500 focus:border-blue-500;
+  }
+
+  /* ===================
+     BADGES
+     =================== */
+  .badge {
+    @apply inline-flex items-center gap-1.5
+           px-2.5 py-1 rounded-full
+           text-xs font-medium
+           transition-colors;
+  }
+  .badge-accent {
+    @apply badge bg-accent/15 text-accent;
+  }
+  .badge-blue {
+    @apply badge bg-secondary/15 text-secondary;
+  }
+  .badge-warning {
+    @apply badge bg-warning-bg text-warning;
+  }
+  .badge-danger {
+    @apply badge bg-danger-bg text-danger;
+  }
+  .badge-success {
+    @apply badge bg-success-bg text-success;
+  }
+  .badge-muted {
+    @apply badge bg-surface-elevated text-text-secondary;
+  }
+
+  :root:not(.dark) .badge-accent {
+    @apply bg-emerald-100 text-emerald-700;
+  }
+  :root:not(.dark) .badge-blue {
+    @apply bg-blue-100 text-blue-700;
+  }
+  :root:not(.dark) .badge-warning {
+    @apply bg-amber-100 text-amber-700;
+  }
+  :root:not(.dark) .badge-danger {
+    @apply bg-red-100 text-red-700;
+  }
+  :root:not(.dark) .badge-success {
+    @apply bg-green-100 text-green-700;
+  }
+  :root:not(.dark) .badge-muted {
+    @apply bg-gray-100 text-gray-600;
+  }
+
+  /* ===================
+     SKIP NAV (WCAG)
+     =================== */
+  .sr-only-focusable:focus {
+    @apply not-sr-only absolute top-4 left-4 z-50
+           bg-accent text-surface font-semibold
+           px-6 py-3 rounded-xl shadow-glow;
+  }
+
+  /* ===================
+     SKELETON LOADER
+     =================== */
+  .skeleton {
+    @apply bg-surface-card rounded-xl relative overflow-hidden;
+  }
+  .skeleton::after {
+    content: '';
+    @apply absolute inset-0;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.04) 50%,
+      transparent 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s linear infinite;
+  }
+
+  :root:not(.dark) .skeleton {
+    @apply bg-gray-200;
+  }
+  :root:not(.dark) .skeleton::after {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.5) 50%,
+      transparent 100%
+    );
+    background-size: 200% 100%;
+  }
+
+  /* ===================
+     GLASS EFFECTS
+     =================== */
+  .glass {
+    @apply bg-white/5 backdrop-blur-glass border border-white/10;
+  }
+  :root:not(.dark) .glass {
+    @apply bg-white/80 border-gray-200/60;
+  }
+
+  /* ===================
+     GRADIENT TEXT
+     =================== */
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-accent via-secondary to-accent;
+  }
+
+  /* ===================
+     TOOLTIP
+     =================== */
+  .tooltip {
+    @apply relative;
+  }
+  .tooltip::after {
+    content: attr(data-tooltip);
+    @apply absolute bottom-full left-1/2 -translate-x-1/2 mb-2
+           px-3 py-1.5 rounded-lg
+           bg-surface-elevated text-text-primary text-xs font-medium
+           whitespace-nowrap
+           opacity-0 pointer-events-none
+           transition-opacity duration-200;
+  }
+  .tooltip:hover::after {
+    @apply opacity-100;
+  }
+}
+
+/* ============================================
+   HIGH CONTRAST MODE
+   ============================================ */
+.high-contrast .card {
+  @apply border-2 border-yellow-400;
+}
+.high-contrast .btn-primary {
+  @apply bg-yellow-400 text-black border-2 border-yellow-400 font-bold;
+}
+.high-contrast .input-field {
+  @apply border-2 border-yellow-400;
+}
+.high-contrast .badge {
+  @apply border border-current font-bold;
+}
+
+/* ============================================
+   LEAFLET MAP OVERRIDES
+   ============================================ */
+.leaflet-container {
+  @apply rounded-2xl z-0;
+  height: 100%;
+  min-height: 300px;
+  background: #0B1220;
+}
+.dark .leaflet-container .leaflet-control-zoom a {
+  @apply bg-surface-card text-text-primary border-border;
+}
+
+/* ============================================
+   CHART.JS DARK MODE
+   ============================================ */
+.dark .chart-container canvas {
+  filter: none;
+}
+
+/* ============================================
+   MISC UTILITIES
+   ============================================ */
+.animate-delay-100 { animation-delay: 100ms; }
+.animate-delay-200 { animation-delay: 200ms; }
+.animate-delay-300 { animation-delay: 300ms; }
+.animate-delay-400 { animation-delay: 400ms; }
+.animate-delay-500 { animation-delay: 500ms; }
+
+/* Number counter animation */
+@property --num {
+  syntax: '<integer>';
+  initial-value: 0;
+  inherits: false;
+}

@@ -1,0 +1,33 @@
+name: Smart Stadiums CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: |
+          npm install
+          npm run install:all
+
+      - name: Build client assets
+        run: npm run build
+
+      - name: Run server test suites
+        run: npm test --prefix server
+        env:
+          JWT_SECRET: test-secret-key-environment-variable-verification
+          NODE_ENV: test
