@@ -1,21 +1,17 @@
 import { Router } from 'express';
-import Incident from '../models/Incident.js';
 import CrowdZone from '../models/CrowdZone.js';
 import { authenticate, authorize } from '../middleware/auth.js';
 import { generateAIResponse } from '../services/geminiService.js';
-import { AppError } from '../utils/AppError.js';
+import incidentService from '../services/incidentService.js';
 
 const router = Router();
 
 router.get('/alerts/:stadiumId', authenticate, authorize('security', 'admin'), async (req, res, next) => {
   try {
+    const stadiumId = req.params.stadiumId;
     const [criticalZones, openIncidents] = await Promise.all([
-      CrowdZone.find({ stadium: req.params.stadiumId, status: { $in: ['congested', 'critical'] } }),
-      Incident.find({
-        stadium: req.params.stadiumId,
-        status: { $in: ['open', 'investigating'] },
-        severity: { $in: ['high', 'critical'] },
-      }).sort({ createdAt: -1 }),
+      CrowdZone.find({ stadium: stadiumId, status: { $in: ['congested', 'critical'] } }),
+      incidentService.getActiveSecurityIncidents(stadiumId),
     ]);
 
     const alerts = [

@@ -11,17 +11,38 @@ export const validate = (req, res, next) => {
 };
 
 export const errorHandler = (err, req, res, _next) => {
-  const statusCode = err.statusCode || 500;
-  const message = err.isOperational ? err.message : 'Internal server error';
+  let error = { ...err };
+  error.message = err.message;
 
-  if (!err.isOperational) {
-    logger.error('Unhandled error:', { message: err.message, stack: err.stack });
+  // Handle Mongoose duplicate key error (code 11000)
+  if (err.code === 11000) {
+    const field = Object.keys(err.keyValue || {})[0] || 'field';
+    const message = `${field.charAt(0).toUpperCase() + field.slice(1)} already registered`;
+    error = new AppError(message, 409);
+  }
+
+  // Handle Mongoose validation errors
+  if (err.name === 'ValidationError') {
+    const message = Object.values(err.errors).map((el) => el.message).join(', ');
+    error = new AppError(message, 400);
+  }
+
+  // Handle Mongoose CastError (e.g. invalid ObjectId)
+  if (err.name === 'CastError') {
+    error = new AppError(`Invalid ${err.path}: ${err.value}`, 400);
+  }
+
+  const statusCode = error.statusCode || 500;
+  const message = error.isOperational ? error.message : 'Internal server error';
+
+  if (!error.isOperational) {
+    logger.error('Unhandled error:', { message: error.message, stack: error.stack });
   }
 
   res.status(statusCode).json({
     success: false,
     message,
-    ...(process.env.NODE_ENV === 'development' && { stack: err.stack }),
+    ...(process.env.NODE_ENV === 'development' && { stack: error.stack }),
   });
 };
 

@@ -3,9 +3,15 @@ import logger from '../utils/logger.js';
 
 let genAI = null;
 
+let loggedWarning = false;
+
 const getGenAI = () => {
   if (!genAI && process.env.GEMINI_API_KEY) {
     genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+  }
+  if (!genAI && !loggedWarning) {
+    logger.warn('Gemini API key not configured, using fallback responses for AI services');
+    loggedWarning = true;
   }
   return genAI;
 };
@@ -35,7 +41,6 @@ const fallbackResponse = (prompt) => {
 export const generateAIResponse = async (prompt, context = {}) => {
   const ai = getGenAI();
   if (!ai) {
-    logger.warn('Gemini API key not configured, using fallback responses');
     return fallbackResponse(prompt);
   }
 

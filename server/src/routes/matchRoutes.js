@@ -1,7 +1,6 @@
 import { Router } from 'express';
-import Match from '../models/Match.js';
 import { authenticate, authorize } from '../middleware/auth.js';
-import { AppError } from '../utils/AppError.js';
+import matchService from '../services/matchService.js';
 
 const router = Router();
 
@@ -10,9 +9,7 @@ router.get('/', async (req, res, next) => {
     const filter = {};
     if (req.query.stadium) filter.stadium = req.query.stadium;
     if (req.query.status) filter.status = req.query.status;
-    const matches = await Match.find(filter)
-      .populate('stadium', 'name city capacity')
-      .sort({ scheduledAt: 1 });
+    const matches = await matchService.getMatches(filter);
     res.json({ success: true, data: matches });
   } catch (err) {
     next(err);
@@ -21,8 +18,7 @@ router.get('/', async (req, res, next) => {
 
 router.get('/live', async (req, res, next) => {
   try {
-    const matches = await Match.find({ status: { $in: ['live', 'halftime'] } })
-      .populate('stadium', 'name city capacity');
+    const matches = await matchService.getLiveMatches();
     res.json({ success: true, data: matches });
   } catch (err) {
     next(err);
@@ -31,8 +27,7 @@ router.get('/live', async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) => {
   try {
-    const match = await Match.findById(req.params.id).populate('stadium');
-    if (!match) throw new AppError('Match not found', 404);
+    const match = await matchService.getMatchById(req.params.id);
     res.json({ success: true, data: match });
   } catch (err) {
     next(err);
@@ -42,12 +37,7 @@ router.get('/:id', async (req, res, next) => {
 router.patch('/:id/score', authenticate, authorize('staff', 'admin'), async (req, res, next) => {
   try {
     const { homeScore, awayScore, status } = req.body;
-    const match = await Match.findByIdAndUpdate(
-      req.params.id,
-      { homeScore, awayScore, ...(status && { status }) },
-      { new: true }
-    ).populate('stadium', 'name city');
-    if (!match) throw new AppError('Match not found', 404);
+    const match = await matchService.updateScore(req.params.id, { homeScore, awayScore, status });
     res.json({ success: true, data: match });
   } catch (err) {
     next(err);

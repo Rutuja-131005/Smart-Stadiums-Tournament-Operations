@@ -1,25 +1,16 @@
 import { Router } from 'express';
-import Notification from '../models/Notification.js';
-import Report from '../models/Report.js';
 import { authenticate, authorize } from '../middleware/auth.js';
 import { generateMatchDayReport } from '../services/geminiService.js';
 import Match from '../models/Match.js';
 import CrowdZone from '../models/CrowdZone.js';
 import Incident from '../models/Incident.js';
-import { AppError } from '../utils/AppError.js';
+import notificationService from '../services/notificationService.js';
 
 const router = Router();
 
 router.get('/', authenticate, async (req, res, next) => {
   try {
-    const filter = {
-      $or: [
-        { user: req.user._id },
-        { role: req.user.role },
-        { role: 'all' },
-      ],
-    };
-    const notifications = await Notification.find(filter).sort({ createdAt: -1 }).limit(50);
+    const notifications = await notificationService.getNotificationsForUser(req.user._id, req.user.role);
     res.json({ success: true, data: notifications });
   } catch (err) {
     next(err);
@@ -28,8 +19,7 @@ router.get('/', authenticate, async (req, res, next) => {
 
 router.patch('/:id/read', authenticate, async (req, res, next) => {
   try {
-    const notification = await Notification.findByIdAndUpdate(req.params.id, { isRead: true }, { new: true });
-    if (!notification) throw new AppError('Notification not found', 404);
+    const notification = await notificationService.markNotificationAsRead(req.params.id);
     res.json({ success: true, data: notification });
   } catch (err) {
     next(err);
@@ -38,10 +28,7 @@ router.patch('/:id/read', authenticate, async (req, res, next) => {
 
 router.patch('/read-all', authenticate, async (req, res, next) => {
   try {
-    await Notification.updateMany(
-      { $or: [{ user: req.user._id }, { role: req.user.role }, { role: 'all' }], isRead: false },
-      { isRead: true }
-    );
+    await notificationService.markAllNotificationsAsRead(req.user._id, req.user.role);
     res.json({ success: true, message: 'All notifications marked as read' });
   } catch (err) {
     next(err);
@@ -53,7 +40,7 @@ router.get('/reports', authenticate, authorize('staff', 'admin'), async (req, re
     const filter = {};
     if (req.query.stadium) filter.stadium = req.query.stadium;
     if (req.query.type) filter.type = req.query.type;
-    const reports = await Report.find(filter).sort({ createdAt: -1 });
+    const reports = await notificationService.getReports(filter);
     res.json({ success: true, data: reports });
   } catch (err) {
     next(err);
@@ -70,7 +57,7 @@ router.post('/reports/generate', authenticate, authorize('staff', 'admin'), asyn
     ]);
 
     const content = await generateMatchDayReport(match, { crowdZones, incidents });
-    const report = await Report.create({
+    const report = await notificationService.createReport({
       stadium: stadiumId || match.stadium._id,
       match: matchId,
       type,

@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import VolunteerTask from '../models/VolunteerTask.js';
 import { authenticate, authorize } from '../middleware/auth.js';
 import { generateAIResponse } from '../services/geminiService.js';
+import volunteerService from '../services/volunteerService.js';
 import { AppError } from '../utils/AppError.js';
 
 const router = Router();
@@ -14,10 +14,7 @@ router.get('/tasks', authenticate, authorize('volunteer', 'staff', 'admin'), asy
     if (req.query.stadium) filter.stadium = req.query.stadium;
     if (req.query.status) filter.status = req.query.status;
 
-    const tasks = await VolunteerTask.find(filter)
-      .populate('stadium', 'name city')
-      .populate('assignedTo', 'name email')
-      .sort({ priority: -1, dueAt: 1 });
+    const tasks = await volunteerService.getTasks(filter);
     res.json({ success: true, data: tasks });
   } catch (err) {
     next(err);
@@ -27,12 +24,7 @@ router.get('/tasks', authenticate, authorize('volunteer', 'staff', 'admin'), asy
 router.patch('/tasks/:id', authenticate, authorize('volunteer', 'staff', 'admin'), async (req, res, next) => {
   try {
     const { status } = req.body;
-    const task = await VolunteerTask.findByIdAndUpdate(
-      req.params.id,
-      { status, ...(status === 'completed' && { completedAt: new Date() }) },
-      { new: true }
-    );
-    if (!task) throw new AppError('Task not found', 404);
+    const task = await volunteerService.updateTaskStatus(req.params.id, status);
     res.json({ success: true, data: task });
   } catch (err) {
     next(err);

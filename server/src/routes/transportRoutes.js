@@ -1,14 +1,13 @@
 import { Router } from 'express';
-import TransportRoute from '../models/TransportRoute.js';
 import { authenticate } from '../middleware/auth.js';
 import { generateAIResponse } from '../services/geminiService.js';
-import { AppError } from '../utils/AppError.js';
+import transportService from '../services/transportService.js';
 
 const router = Router();
 
 router.get('/stadium/:stadiumId', async (req, res, next) => {
   try {
-    const routes = await TransportRoute.find({ stadium: req.params.stadiumId });
+    const routes = await transportService.getRoutesByStadium(req.params.stadiumId);
     res.json({ success: true, data: routes });
   } catch (err) {
     next(err);
@@ -17,7 +16,7 @@ router.get('/stadium/:stadiumId', async (req, res, next) => {
 
 router.get('/stadium/:stadiumId/plan', authenticate, async (req, res, next) => {
   try {
-    const routes = await TransportRoute.find({ stadium: req.params.stadiumId });
+    const routes = await transportService.getRoutesByStadium(req.params.stadiumId);
     const { origin, preferences } = req.query;
 
     const available = routes.filter((r) => r.status !== 'closed');
@@ -43,8 +42,7 @@ router.get('/stadium/:stadiumId/plan', authenticate, async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) => {
   try {
-    const route = await TransportRoute.findById(req.params.id);
-    if (!route) throw new AppError('Transport route not found', 404);
+    const route = await transportService.getRouteById(req.params.id);
     res.json({ success: true, data: route });
   } catch (err) {
     next(err);

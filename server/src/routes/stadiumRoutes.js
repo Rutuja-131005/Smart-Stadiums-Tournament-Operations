@@ -1,13 +1,11 @@
 import { Router } from 'express';
-import Stadium from '../models/Stadium.js';
-import { authenticate } from '../middleware/auth.js';
-import { AppError } from '../utils/AppError.js';
+import stadiumService from '../services/stadiumService.js';
 
 const router = Router();
 
 router.get('/', async (req, res, next) => {
   try {
-    const stadiums = await Stadium.find().select('-__v');
+    const stadiums = await stadiumService.getAllStadiums();
     res.json({ success: true, data: stadiums });
   } catch (err) {
     next(err);
@@ -16,8 +14,7 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) => {
   try {
-    const stadium = await Stadium.findById(req.params.id);
-    if (!stadium) throw new AppError('Stadium not found', 404);
+    const stadium = await stadiumService.getStadiumById(req.params.id);
     res.json({ success: true, data: stadium });
   } catch (err) {
     next(err);
@@ -26,9 +23,8 @@ router.get('/:id', async (req, res, next) => {
 
 router.get('/:id/zones', async (req, res, next) => {
   try {
-    const stadium = await Stadium.findById(req.params.id).select('zones name');
-    if (!stadium) throw new AppError('Stadium not found', 404);
-    res.json({ success: true, data: stadium.zones });
+    const zones = await stadiumService.getStadiumZones(req.params.id);
+    res.json({ success: true, data: zones });
   } catch (err) {
     next(err);
   }
@@ -38,14 +34,7 @@ router.get('/nearby/:lng/:lat', async (req, res, next) => {
   try {
     const { lng, lat } = req.params;
     const maxDistance = parseInt(req.query.radius, 10) || 50000;
-    const stadiums = await Stadium.find({
-      location: {
-        $near: {
-          $geometry: { type: 'Point', coordinates: [parseFloat(lng), parseFloat(lat)] },
-          $maxDistance: maxDistance,
-        },
-      },
-    });
+    const stadiums = await stadiumService.getNearbyStadiums(parseFloat(lng), parseFloat(lat), maxDistance);
     res.json({ success: true, data: stadiums });
   } catch (err) {
     next(err);
