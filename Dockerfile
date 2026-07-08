@@ -15,6 +15,7 @@ FROM node:20-alpine AS production
 
 WORKDIR /app
 ENV NODE_ENV=production
+ENV MONGOMS_DOWNLOAD_DIR=/tmp/mongodb-binaries
 
 COPY --from=builder /app/server ./server
 COPY --from=builder /app/client/dist ./client/dist
