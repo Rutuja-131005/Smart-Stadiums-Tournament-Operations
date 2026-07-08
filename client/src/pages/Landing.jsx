@@ -62,7 +62,7 @@ export default function Landing() {
             className="w-9 h-9 rounded-xl object-cover shadow-md" 
           />
           <div>
-            <h1 className="font-bold text-sm leading-tight">Smart Stadiums</h1>
+            <span className="font-bold text-sm leading-tight block">Smart Stadiums</span>
             <p className="text-[10px] text-accent font-semibold tracking-wider uppercase">FIFA World Cup 2026</p>
           </div>
         </div>

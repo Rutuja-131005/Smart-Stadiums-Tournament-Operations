@@ -29,6 +29,11 @@ Thumbs.db
 
 # Test
 .nyc_output/
+server/coverage/
+
+# Build output
+client/dist/
+*.tsbuildinfo
 
 # Docker
 mongo_data/

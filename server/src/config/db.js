@@ -3,14 +3,16 @@ import logger from '../utils/logger.js';
 
 const connectDB = async () => {
   const uri = process.env.MONGODB_URI || 'mongodb://localhost:27017/smart-stadiums';
+  const maskedUri = uri.replace(/:([^@]+)@/, ':***@');
 
   // First try connecting to the configured MongoDB URI
   try {
+    logger.info(`Attempting MongoDB connection to: ${maskedUri}`);
     await mongoose.connect(uri, { serverSelectionTimeoutMS: 3000 });
     logger.info('MongoDB connected successfully');
     return;
   } catch (error) {
-    logger.warn(`Could not connect to MongoDB at ${uri}: ${error.message}`);
+    logger.warn(`Could not connect to MongoDB at ${maskedUri}: ${error.message}`);
     logger.info('Falling back to in-memory MongoDB server...');
   }
 

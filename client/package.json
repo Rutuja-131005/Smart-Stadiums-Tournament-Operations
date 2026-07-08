@@ -14,14 +14,15 @@
     "axios": "^1.7.7",
     "chart.js": "^4.4.4",
     "framer-motion": "^11.5.4",
+    "isomorphic-dompurify": "^3.18.0",
     "leaflet": "^1.9.4",
     "react": "^18.3.1",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.3.1",
     "react-leaflet": "^4.2.1",
     "react-router-dom": "^6.26.2",
-    "smart-stadiums-tournament-operations": "file:..",
-    "socket.io-client": "^4.7.5"
+    "socket.io-client": "^4.7.5",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.5.0",

@@ -9,6 +9,7 @@ import SustainabilityMetric from '../models/SustainabilityMetric.js';
 import TransportRoute from '../models/TransportRoute.js';
 import Report from '../models/Report.js';
 import logger from '../utils/logger.js';
+import { getDemoAccounts } from './authDefaults.js';
 
 const seedDatabase = async () => {
   // Check if data already exists
@@ -71,14 +72,19 @@ const seedDatabase = async () => {
 
   const [metlife, azteca, bcplace] = stadiums;
 
-  const users = await Promise.all([
-    User.create({ name: 'Admin User', email: 'admin@fifa2026.com', password: 'admin123', role: 'admin', assignedStadium: metlife._id }),
-    User.create({ name: 'John Organizer', email: 'organizer@fifa2026.com', password: 'staff123', role: 'staff', assignedStadium: metlife._id }),
-    User.create({ name: 'Sarah Security', email: 'security@fifa2026.com', password: 'security123', role: 'security', assignedStadium: metlife._id }),
-    User.create({ name: 'Mike Volunteer', email: 'volunteer@fifa2026.com', password: 'volunteer123', role: 'volunteer', assignedStadium: metlife._id }),
-    User.create({ name: 'Fan User', email: 'fan@fifa2026.com', password: 'fan123', role: 'fan', preferredLanguage: 'en' }),
-    User.create({ name: 'Maria Fan', email: 'maria@fifa2026.com', password: 'fan123', role: 'fan', preferredLanguage: 'es' }),
-  ]);
+  const demoAccounts = getDemoAccounts();
+  const users = await Promise.all(
+    demoAccounts.map((account, idx) =>
+      User.create({
+        name: account.name,
+        email: account.email,
+        password: account.password,
+        role: account.role,
+        preferredLanguage: account.preferredLanguage || 'en',
+        ...(idx < 4 && { assignedStadium: metlife._id }),
+      })
+    )
+  );
 
   const [, organizer, security, volunteer] = users;
 
@@ -282,11 +288,9 @@ const seedDatabase = async () => {
 
   logger.info('Database seeded successfully!');
   logger.info('Demo accounts:');
-  logger.info('  admin@fifa2026.com / admin123');
-  logger.info('  organizer@fifa2026.com / staff123');
-  logger.info('  security@fifa2026.com / security123');
-  logger.info('  volunteer@fifa2026.com / volunteer123');
-  logger.info('  fan@fifa2026.com / fan123');
+  demoAccounts.forEach((a) => {
+    logger.info(`  ${a.email} / ${a.password}`);
+  });
 };
 
 export default seedDatabase;

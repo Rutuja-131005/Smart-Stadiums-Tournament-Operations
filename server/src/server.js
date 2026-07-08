@@ -35,9 +35,30 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 const server = createServer(app);
 
-const corsOrigin = process.env.CORS_ORIGIN || 'http://localhost:5173';
+// --- CORS Configuration ---
+const allowedOrigins = [
+  process.env.CORS_ORIGIN || 'http://localhost:5173',
+  process.env.CLIENT_URL,
+  // Cloud Run URLs
+  /\.run\.app$/,
+].filter(Boolean);
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    // Allow requests with no origin (server-to-server, curl, health checks)
+    if (!origin) return callback(null, true);
+    const isAllowed = allowedOrigins.some((allowed) =>
+      allowed instanceof RegExp ? allowed.test(origin) : allowed === origin
+    );
+    if (isAllowed) return callback(null, true);
+    callback(null, true); // Permissive in dev; restrict in production as needed
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+};
+
 const io = new Server(server, {
-  cors: { origin: corsOrigin, methods: ['GET', 'POST'] },
+  cors: corsOptions,
 });
 
 app.set('io', io);
@@ -54,8 +75,32 @@ const startDB = async () => {
 };
 startDB();
 
-app.use(helmet({ contentSecurityPolicy: false }));
-app.use(cors({ origin: corsOrigin, credentials: true }));
+// --- Security Middleware ---
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'"],
+        styleSrc: ["'self'", "'unsafe-inline'"],
+        imgSrc: ["'self'", 'data:', 'https:'],
+        fontSrc: ["'self'"],
+        connectSrc: [
+          "'self'",
+          'https://generativelanguage.googleapis.com',
+          'wss:',
+          'ws:',
+        ],
+        objectSrc: ["'none'"],
+        frameAncestors: ["'none'"],
+        baseUri: ["'self'"],
+        formAction: ["'self'"],
+      },
+    },
+    crossOriginEmbedderPolicy: false,
+  })
+);
+app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(mongoSanitize());
 app.use(compression());
@@ -65,6 +110,17 @@ app.use(express.urlencoded({ extended: true }));
 const limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 200 });
 app.use('/api/', limiter);
 
+// --- Dev request logging for auth debugging ---
+if (process.env.NODE_ENV !== 'production') {
+  app.use('/api/auth', (req, _res, next) => {
+    logger.info(`[Auth] ${req.method} ${req.originalUrl}`, {
+      body: req.body?.email ? { email: req.body.email, hasPassword: !!req.body.password } : {},
+    });
+    next();
+  });
+}
+
+// --- Health Check Endpoints ---
 app.get('/api/health', (req, res) => {
   res.json({ success: true, message: 'Smart Stadiums API is running', timestamp: new Date() });
 });
@@ -82,6 +138,7 @@ app.get('/health/readiness', async (req, res) => {
   }
 });
 
+// --- API Routes ---
 app.use('/api/auth', authRoutes);
 app.use('/api/stadiums', stadiumRoutes);
 app.use('/api/matches', matchRoutes);
@@ -94,6 +151,7 @@ app.use('/api/security', securityRoutes);
 app.use('/api/sustainability', sustainabilityRoutes);
 app.use('/api/notifications', notificationRoutes);
 
+// --- Static Frontend ---
 const frontendDist = path.join(__dirname, '../../client/dist');
 app.use(express.static(frontendDist));
 app.get('*', (req, res, next) => {
