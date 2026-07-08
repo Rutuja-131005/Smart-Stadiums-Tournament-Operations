@@ -67,10 +67,8 @@ initializeSocket(io);
 const startDB = async () => {
   if (process.env.NODE_ENV !== 'test') {
     await connectDB();
-    // Auto-seed when using in-memory DB
-    if (process.env.__MEMORY_DB__ === 'true') {
-      await seedDatabase();
-    }
+    // Auto-seed database if empty
+    await seedDatabase();
   }
 };
 startDB();
