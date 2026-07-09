@@ -1,102 +1,216 @@
-# Smart Stadiums & Tournament Operations
-## FIFA World Cup 2026 — AI-Driven Stadium Operations Platform
+# 🏟️ Smart Stadiums & Tournament Operations
 
-A production-ready full-stack web application that improves stadium operations and enhances the tournament experience for fans, organizers, volunteers, venue staff, and security teams.
+### **GenAI-Powered Smart Stadium Operations Platform for FIFA World Cup 2026**
+
+An enterprise-grade, AI-powered platform designed to enhance stadium operations and elevate the tournament experience for **fans, organizers, volunteers, security personnel, and venue staff**. The application combines **Generative AI, real-time analytics, geospatial intelligence, and operational dashboards** to support intelligent decision-making during large-scale sporting events.
 
 **Live Deployed Platform:** [https://smart-stadiums-6p7vbn2sca-uc.a.run.app/](https://smart-stadiums-6p7vbn2sca-uc.a.run.app/)
 
+---
 
-![Tech Stack](https://img.shields.io/badge/React-Vite-61DAFB?style=flat&logo=react)
-![Node.js](https://img.shields.io/badge/Node.js-Express-339933?style=flat&logo=node.js)
-![MongoDB](https://img.shields.io/badge/MongoDB-Mongoose-47A248?style=flat&logo=mongodb)
-![AI](https://img.shields.io/badge/AI-Google_Gemini-4285F4?style=flat&logo=google)
+## 🚀 Project Overview
 
-## Features
+Smart Stadiums & Tournament Operations is a production-ready full-stack application that leverages **Google Gemini AI** to provide intelligent recommendations, operational summaries, multilingual assistance, crowd management insights, transportation guidance, sustainability analytics, and real-time stadium intelligence.
 
-| Module | Capabilities |
-|--------|-------------|
-| **AI Fan Assistant** | Natural-language chat, voice input, multilingual translation |
-| **Indoor Navigation** | Interactive Leaflet maps, accessible route guidance |
-| **Crowd Management** | Real-time density visualization, congestion prediction, AI routing |
-| **Transport Planner** | Parking, shuttle, metro integration with AI recommendations |
-| **Volunteer Dashboard** | Task management, announcements, AI knowledge base |
-| **Organizer Command Center** | Live KPIs, AI summaries, incident tracking, analytics charts |
-| **Security Dashboard** | AI alerts, evacuation planning, emergency workflows |
-| **Sustainability** | Energy, water, waste, carbon metrics with AI optimization |
-| **Notifications** | Real-time alerts and role-based recommendations |
-| **Reports** | AI-generated match-day and operational reports |
+The platform demonstrates how modern AI can improve the management of high-capacity sporting venues while delivering a seamless digital experience for spectators and operational teams.
 
-## Architecture
+---
 
+## ✨ Key Highlights
+
+* 🤖 AI-Powered Fan & Operations Assistant
+* 🗺️ Interactive Indoor Stadium Navigation
+* 👥 Live Crowd Monitoring & Congestion Prediction
+* 🌍 Multilingual AI Translation
+* 🚍 Smart Transportation & Parking Guidance
+* 📊 Organizer Command Center
+* 🛡 Security Operations Dashboard
+* 🌱 Sustainability Analytics & AI Recommendations
+* 📡 Real-Time Notifications using Socket.IO
+* 📈 AI-Generated Operational & Match Reports
+* 🔐 Secure Role-Based Authentication
+* ☁️ Google Cloud Run Ready
+* 📱 Fully Responsive Design
+* 🌙 Dark / Light Theme Support
+
+---
+
+## 🏗️ System Architecture
+
+```text
+                          Users
+     ┌───────────────────────────────────────────┐
+     │ Fans │ Volunteers │ Staff │ Security │ Admin │
+     └───────────────────────────────────────────┘
+                       │
+                       ▼
+┌────────────────────────────────────────────────────────────┐
+│                React Frontend (Vite)                       │
+│ Tailwind CSS • Framer Motion • Leaflet • Chart.js          │
+│ React Router • Socket.IO Client                            │
+└───────────────────────┬────────────────────────────────────┘
+                        │
+          REST API + WebSockets + JWT
+                        │
+┌───────────────────────▼────────────────────────────────────┐
+│                Node.js + Express Backend                   │
+│ JWT Authentication • Gemini AI • Socket.IO                │
+└───────────────────────┬────────────────────────────────────┘
+                        │
+┌───────────────────────▼────────────────────────────────────┐
+│                    MongoDB Database                        │
+│ Mongoose • Geospatial Indexes • Role-Based Data           │
+└────────────────────────────────────────────────────────────┘
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                    React Frontend (Vite)                     │
-│  Tailwind CSS · Framer Motion · Chart.js · Leaflet · Socket │
-└──────────────────────────┬──────────────────────────────────┘
-                           │ REST API + WebSocket
-┌──────────────────────────▼──────────────────────────────────┐
-│                  Node.js / Express Backend                   │
-│  JWT Auth · Socket.IO · Gemini AI · Rate Limiting · Helmet  │
-└──────────────────────────┬──────────────────────────────────┘
-                           │
-┌──────────────────────────▼──────────────────────────────────┐
-│                     MongoDB (Mongoose)                       │
-│              Geospatial indexes · Role-based data            │
-└─────────────────────────────────────────────────────────────┘
-```
 
-## Quick Start
+---
 
-### Prerequisites
-- Node.js 20+
-- MongoDB 7+ (local or Docker)
-- Google Gemini API key (optional — fallback responses work without it)
+# 🎯 Core Modules
 
-### 1. Clone & Install
+| Module                      | Description                                                             |
+| --------------------------- | ----------------------------------------------------------------------- |
+| 🤖 AI Fan Assistant         | Natural language conversations, voice interaction, multilingual support |
+| 🗺 Indoor Navigation        | Interactive maps with accessible route guidance                         |
+| 👥 Crowd Intelligence       | Live crowd density visualization and congestion prediction              |
+| 🚍 Smart Transport          | AI-assisted parking, shuttle, metro and traffic recommendations         |
+| 🙋 Volunteer Dashboard      | Task management, announcements and AI knowledge assistant               |
+| 📊 Organizer Command Center | Live KPIs, analytics, AI operational summaries and incident management  |
+| 🛡 Security Dashboard       | Emergency response, AI alerts and evacuation planning                   |
+| 🌱 Sustainability Center    | Carbon footprint, waste, energy and water monitoring                    |
+| 🔔 Notification Center      | Real-time alerts, announcements and operational updates                 |
+| 📄 AI Reports               | Match reports, executive summaries and operational analytics            |
+
+---
+
+# 🧠 AI Capabilities
+
+Google Gemini powers intelligent features across the platform:
+
+* Operational summaries
+* Incident summarization
+* Crowd risk analysis
+* Transportation recommendations
+* Multilingual translation
+* Accessibility assistance
+* Volunteer task guidance
+* Security recommendations
+* Sustainability insights
+* Executive dashboards
+* Match-day reports
+* AI-powered decision support
+
+---
+
+# 🛠️ Technology Stack
+
+### Frontend
+
+* React (Vite)
+* JavaScript
+* Tailwind CSS
+* Framer Motion
+* React Router
+* Chart.js
+* Leaflet
+* Socket.IO Client
+
+### Backend
+
+* Node.js
+* Express.js
+* Socket.IO
+* JWT Authentication
+* Helmet
+* Express Validator
+
+### Database
+
+* MongoDB
+* Mongoose
+
+### Artificial Intelligence
+
+* Google Gemini API
+
+### DevOps
+
+* Docker
+* Docker Compose
+* Google Cloud Run
+* Cloud Build
+
+---
+
+# ⚡ Quick Start
+
+## Prerequisites
+
+* Node.js 20+
+* MongoDB 7+
+* Docker (Optional)
+* Google Gemini API Key (Optional)
+
+---
+
+## Clone Repository
 
 ```bash
+git clone <repository-url>
 cd "Smart Stadiums & Tournament Operations"
+```
+
+---
+
+## Install Dependencies
+
+```bash
 npm run install:all
 ```
 
-### 2. Configure Environment
+---
+
+## Configure Environment
 
 ```bash
 cp server/.env.example server/.env
 cp client/.env.example client/.env
 ```
 
-Edit `server/.env`:
+Example:
+
 ```env
 MONGODB_URI=mongodb://localhost:27017/smart-stadiums
 JWT_SECRET=your-secret-key
-GEMINI_API_KEY=your-gemini-api-key   # optional
+GEMINI_API_KEY=your-gemini-api-key
 ```
 
-### 3. Start MongoDB
+---
+
+## Start MongoDB
 
 ```bash
 npm run docker:up
-# OR use a local MongoDB instance
 ```
 
-### 4. Seed Database
+or use an existing MongoDB instance.
+
+---
+
+## Seed Database
 
 ```bash
 npm run seed
 ```
 
-### 5. Run Development Servers
+---
+
+## Run Application
 
 ```bash
 npm run dev
 ```
 
-- **Client Frontend:** http://localhost:5173
-- **Server API:** http://localhost:5000/api
-- **API Health:** http://localhost:5000/api/health
-- **Liveness Probe:** http://localhost:5000/health/liveness
-- **Readiness Probe:** http://localhost:5000/health/readiness
+---
 
 ### Demo Accounts
 
@@ -108,131 +222,108 @@ npm run dev
 | Volunteer | volunteer@fifa2026.com | volunteer123 |
 | Fan | fan@fifa2026.com | fan123 |
 
-## Project Structure
+---
 
-```
-├── server/
-│   ├── src/
-│   │   ├── config/         # Database configuration
-│   │   ├── models/         # Mongoose schemas (10 models)
-│   │   ├── routes/         # REST API route handlers
-│   │   ├── services/       # Business logic & Gemini AI
-│   │   ├── middleware/     # Auth, validation, error handling
-│   │   ├── sockets/        # Socket.IO real-time events
-│   │   ├── scripts/        # Database seed script
-│   │   └── server.js       # Application entry point
-│   └── tests/              # Jest integration tests
-├── client/
-│   ├── src/
-│   │   ├── components/     # Reusable UI components
-│   │   ├── contexts/       # Auth, Theme, Socket providers
-│   │   ├── pages/          # Route pages / dashboards
-│   │   ├── services/       # API client
-│   │   └── test/           # Vitest unit tests
-│   └── public/
-├── docs/
-│   ├── API.md              # REST API documentation
-│   └── DATABASE_SCHEMA.md  # MongoDB schema reference
-├── Dockerfile              # Production multi-stage build
-├── docker-compose.yml      # MongoDB + dev/prod services
-└── cloudbuild.yaml         # Google Cloud Run deployment
-```
+# 📁 Project Structure
 
-## Testing
+```text
+client/
+ ├── src/
+ │   ├── app/
+ │   ├── components/
+ │   ├── contexts/
+ │   ├── features/
+ │   ├── hooks/
+ │   ├── layouts/
+ │   ├── pages/
+ │   ├── routes/
+ │   ├── services/
+ │   ├── styles/
+ │   └── utils/
 
-```bash
-# Run all tests
-npm test
+server/
+ ├── src/
+ │   ├── ai/
+ │   ├── config/
+ │   ├── controllers/
+ │   ├── middleware/
+ │   ├── models/
+ │   ├── repositories/
+ │   ├── routes/
+ │   ├── scripts/
+ │   ├── services/
+ │   ├── sockets/
+ │   ├── utils/
+ │   └── validators/
 
-# Server only
-npm test --prefix server
-
-# Client only
-npm test --prefix client
+docs/
+docker/
+.github/
 ```
 
-## Docker Deployment
+---
 
-### Development (with hot reload)
-```bash
-docker-compose --profile dev up
-```
+# 🚀 Deployment
 
-### Production
+Supports deployment to:
+
+* Google Cloud Run
+* Docker
+* Docker Compose
+* MongoDB Atlas
+
+Build:
+
 ```bash
 docker build -t smart-stadiums .
-docker run -p 8080:8080 \
-  -e MONGODB_URI=mongodb://host.docker.internal:27017/smart-stadiums \
-  -e JWT_SECRET=production-secret \
-  -e GEMINI_API_KEY=your-key \
-  smart-stadiums
 ```
 
-## Google Cloud Run Deployment
-
-### Prerequisites
-- Google Cloud project with Cloud Run and Cloud Build APIs enabled
-- MongoDB Atlas cluster (recommended for production)
-- Artifact Registry repository
-
-### Deploy
+Deploy:
 
 ```bash
-# Set your project
-gcloud config set project YOUR_PROJECT_ID
-
-# Build and deploy
 gcloud builds submit --config cloudbuild.yaml
-
-# Or manual deploy
-gcloud run deploy smart-stadiums \
-  --source . \
-  --region us-central1 \
-  --allow-unauthenticated \
-  --set-env-vars "MONGODB_URI=mongodb+srv://...,JWT_SECRET=...,GEMINI_API_KEY=..."
 ```
 
-See `cloudbuild.yaml` for CI/CD pipeline configuration.
+---
 
-## API Documentation
+# 📚 Documentation
 
-Full REST API reference: [docs/API.md](docs/API.md)  
-Database schema: [docs/DATABASE_SCHEMA.md](docs/DATABASE_SCHEMA.md)
+| Document           | Description                  |
+| ------------------ | ---------------------------- |
+| API.md             | [REST API Reference](docs/API.md) |
+| DATABASE_SCHEMA.md | [MongoDB Schema Documentation](docs/DATABASE_SCHEMA.md) |
+| README.md          | Project Overview & Setup     |
 
-## Role-Based Access
+---
 
-| Route | fan | volunteer | staff | security | admin |
-|-------|-----|-----------|-------|----------|-------|
-| Fan Hub | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Navigation | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Transport | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Volunteer Dashboard | ❌ | ✅ | ✅ | ✅ |
-| Command Center | ❌ | ❌ | ✅ | ❌ | ✅ |
-| Security Dashboard | ❌ | ❌ | ❌ | ✅ | ✅ |
-| Sustainability | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Reports | ❌ | ❌ | ✅ | ❌ | ✅ |
+# 🛣️ Roadmap
 
-## Accessibility (WCAG)
+* Indoor AR Navigation
+* Predictive Crowd Analytics
+* IoT Sensor Integration
+* Smart Parking Optimization
+* AI Voice Announcements
+* Advanced Sustainability Insights
+* Emergency Response Automation
+* Progressive Web App (PWA)
+* Offline Support
 
-- Skip-to-content link
-- ARIA labels on interactive elements
-- High-contrast mode toggle
-- Screen reader optimized layouts
-- Keyboard navigable forms
-- Voice guidance for navigation routes
-- Wheelchair-accessible route planning
+---
 
-## Environment Variables
+# 🤝 Contributing
 
-| Variable | Required | Description |
-|----------|----------|-------------|
-| MONGODB_URI | Yes | MongoDB connection string |
-| JWT_SECRET | Yes | JWT signing secret |
-| GEMINI_API_KEY | No | Google Gemini API key (fallback AI without it) |
-| PORT | No | Server port (default: 5000) |
-| CORS_ORIGIN | No | Allowed frontend origin |
-| LOG_LEVEL | No | Winston log level (default: info) |
+Contributions are welcome. Please open an issue before submitting major changes.
 
-## License
+---
 
-MIT — Built for FIFA World Cup 2026 Smart Stadium Operations demonstration.
+# 📄 License
+
+Licensed under the **MIT License**.
+
+---
+
+## ⭐ Built With
+
+**React • Node.js • Express • MongoDB • Google Gemini AI • Socket.IO • Leaflet • Chart.js • Tailwind CSS • Docker • Google Cloud Run**
+
+> *Building the future of AI-powered stadium operations for global sporting events.*
