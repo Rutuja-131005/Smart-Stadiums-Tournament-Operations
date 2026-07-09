@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import User from '../models/User.js';
 import Stadium from '../models/Stadium.js';
 import Match from '../models/Match.js';
@@ -86,7 +87,10 @@ const seedDatabase = async () => {
     )
   );
 
-  const [, organizer, security, volunteer] = users;
+  const organizerId = users[1]?._id || new mongoose.Types.ObjectId();
+  const securityId = users[2]?._id || new mongoose.Types.ObjectId();
+  const volunteerId = users[3]?._id || new mongoose.Types.ObjectId();
+  const fanId = users[4]?._id || new mongoose.Types.ObjectId();
 
   const matches = await Match.insertMany([
     {
@@ -159,7 +163,7 @@ const seedDatabase = async () => {
       severity: 'medium',
       status: 'investigating',
       location: { zone: 'Section 112', coordinates: { lat: 40.8136, lng: -74.0748 }, floor: 2 },
-      reportedBy: volunteer._id,
+      reportedBy: volunteerId,
       aiSummary: 'Medical team dispatched to Section 112. Heat-related incident during live match.',
       aiRecommendations: ['Ensure hydration stations are visible', 'Monitor crowd density in Section 112', 'Prepare backup medical team'],
     },
@@ -171,7 +175,7 @@ const seedDatabase = async () => {
       severity: 'low',
       status: 'open',
       location: { zone: 'Gate A', floor: 0 },
-      reportedBy: organizer._id,
+      reportedBy: organizerId,
     },
   ]);
 
@@ -181,7 +185,7 @@ const seedDatabase = async () => {
       match: liveMatch._id,
       title: 'Wayfinding Support - Gate A',
       description: 'Assist fans with directions to Section 112 and accessible routes',
-      assignedTo: volunteer._id,
+      assignedTo: volunteerId,
       priority: 'high',
       status: 'in_progress',
       location: { zone: 'Gate A', coordinates: { lat: 40.8138, lng: -74.0740 } },
@@ -201,7 +205,7 @@ const seedDatabase = async () => {
       stadium: metlife._id,
       title: 'Guest Services - Lost Item',
       description: 'Process lost item report from Gate C area',
-      assignedTo: volunteer._id,
+      assignedTo: volunteerId,
       priority: 'low',
       status: 'pending',
       category: 'guest_services',
@@ -212,7 +216,7 @@ const seedDatabase = async () => {
     { role: 'all', stadium: metlife._id, title: 'Match Live', message: 'USA vs England is now LIVE at MetLife Stadium!', type: 'info', category: 'match' },
     { role: 'security', stadium: metlife._id, title: 'Crowd Alert', message: 'North Concourse approaching 75% capacity', type: 'warning', category: 'crowd' },
     { role: 'volunteer', stadium: metlife._id, title: 'Shift Update', message: 'Briefing at Zone B at 16:00', type: 'info', category: 'general' },
-    { user: users[4]._id, title: 'Transport Tip', message: 'Metro shuttle has low wait times from Downtown', type: 'recommendation', category: 'transport' },
+    { user: fanId, title: 'Transport Tip', message: 'Metro shuttle has low wait times from Downtown', type: 'recommendation', category: 'transport' },
   ]);
 
   await SustainabilityMetric.insertMany([
@@ -282,7 +286,7 @@ const seedDatabase = async () => {
     title: 'USA vs England - Match Day Report',
     content: 'Preliminary match-day report. Full AI-generated report available on demand.',
     generatedBy: 'ai',
-    author: organizer._id,
+    author: organizerId,
     metrics: { attendance: 78500, avgDensity: 58, incidents: 2 },
   });
 

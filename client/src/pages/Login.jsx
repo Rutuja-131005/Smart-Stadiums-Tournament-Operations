@@ -3,13 +3,7 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { motion } from 'framer-motion';
 
-const demoAccounts = [
-  { role: 'fan', label: 'Fan User', email: 'fan@fifa2026.com', pass: 'fan123', color: 'border-fifa-gold/30 hover:border-fifa-gold text-fifa-gold' },
-  { role: 'volunteer', label: 'Volunteer', email: 'volunteer@fifa2026.com', pass: 'volunteer123', color: 'border-warning/30 hover:border-warning text-warning' },
-  { role: 'security', label: 'Security Desk', email: 'security@fifa2026.com', pass: 'security123', color: 'border-danger/30 hover:border-danger text-danger' },
-  { role: 'staff', label: 'Command Staff', email: 'organizer@fifa2026.com', pass: 'staff123', color: 'border-secondary/30 hover:border-secondary text-secondary' },
-  { role: 'admin', label: 'System Admin', email: 'admin@fifa2026.com', pass: 'admin123', color: 'border-accent/30 hover:border-accent text-accent' },
-];
+const demoAccounts = [];
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -196,20 +190,22 @@ export default function Login() {
           </form>
 
           {/* Quick login demo selector */}
-          <div className="space-y-4 pt-4 border-t border-border/40">
-            <p className="text-xs font-bold uppercase tracking-wider text-text-secondary">Quick Login Presets</p>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-              {demoAccounts.map((demo) => (
-                <button
-                  key={demo.role}
-                  onClick={() => handleDemoLogin(demo)}
-                  className={`px-3 py-2 text-xs font-semibold rounded-xl border bg-surface-secondary/40 text-center transition-all ${demo.color}`}
-                >
-                  {demo.label}
-                </button>
-              ))}
+          {demoAccounts.length > 0 && (
+            <div className="space-y-4 pt-4 border-t border-border/40">
+              <p className="text-xs font-bold uppercase tracking-wider text-text-secondary">Quick Login Presets</p>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                {demoAccounts.map((demo) => (
+                  <button
+                    key={demo.role}
+                    onClick={() => handleDemoLogin(demo)}
+                    className={`px-3 py-2 text-xs font-semibold rounded-xl border bg-surface-secondary/40 text-center transition-all ${demo.color}`}
+                  >
+                    {demo.label}
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
 
           <p className="text-center text-sm text-text-secondary">
             Don't have an operational account?{' '}

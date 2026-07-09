@@ -4,16 +4,12 @@ describe('Auth Defaults Helper', () => {
   it('should retrieve demo accounts list', () => {
     const accounts = getDemoAccounts();
     expect(Array.isArray(accounts)).toBe(true);
-    expect(accounts.length).toBeGreaterThan(0);
-    expect(accounts[0].email).toBeDefined();
-    expect(accounts[0].password).toBeDefined();
+    expect(accounts.length).toBe(0);
   });
 
   it('should find a demo account by email', () => {
     const admin = findDemoAccount('admin@fifa2026.com');
-    expect(admin).toBeDefined();
-    expect(admin.role).toBe('admin');
-    expect(admin.password).toBe('admin123');
+    expect(admin).toBeUndefined();
   });
 
   it('should return undefined for non-existent account', () => {

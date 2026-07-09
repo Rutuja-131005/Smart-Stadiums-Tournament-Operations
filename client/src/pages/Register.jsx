@@ -2,14 +2,11 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { motion } from 'framer-motion';
-import { authAPI } from '../services/api';
 
 export default function Register() {
   const [form, setForm] = useState({ name: '', email: '', password: '', role: 'fan' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [uploading, setUploading] = useState(false);
-  const [importResult, setImportResult] = useState(null);
   const { register } = useAuth();
   const navigate = useNavigate();
 
@@ -28,31 +25,6 @@ export default function Register() {
       setError(err.response?.data?.message || 'Registration failed. Please try again.');
     } finally {
       setLoading(false);
-    }
-  };
-
-  const handleFileUpload = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    
-    setUploading(true);
-    setImportResult(null);
-    setError('');
-    
-    const formData = new FormData();
-    formData.append('file', file);
-    
-    try {
-      const { data } = await authAPI.importExcel(formData);
-      setImportResult({
-        message: data.message,
-        errors: data.data?.errors,
-      });
-      e.target.value = null;
-    } catch (err) {
-      setError(err.response?.data?.message || 'File import failed. Please check the file format.');
-    } finally {
-      setUploading(false);
     }
   };
 
@@ -188,51 +160,6 @@ export default function Register() {
               )}
             </button>
           </form>
-
-          <div className="border-t border-border/40 pt-6 mt-6 space-y-4">
-            <p className="text-xs font-bold uppercase tracking-wider text-text-secondary">Import Bulk Accounts</p>
-            <p className="text-xs text-text-secondary leading-relaxed">
-              Upload an Excel (.xlsx, .xls) or CSV file with headers: <code className="text-accent bg-surface-secondary/40 px-1 py-0.5 rounded">name</code>, <code className="text-accent bg-surface-secondary/40 px-1 py-0.5 rounded">email</code>, <code className="text-accent bg-surface-secondary/40 px-1 py-0.5 rounded">password</code>, <code className="text-accent bg-surface-secondary/40 px-1 py-0.5 rounded">role</code>.
-            </p>
-            
-            <div className="flex items-center justify-center w-full">
-              <label className="flex flex-col items-center justify-center w-full h-24 border border-dashed border-border/60 hover:border-accent/40 rounded-xl cursor-pointer bg-surface-secondary/10 hover:bg-surface-secondary/20 transition-all">
-                <div className="flex flex-col items-center justify-center text-center px-4">
-                  <svg className="w-6 h-6 text-text-secondary mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" />
-                  </svg>
-                  <p className="text-xs text-text-secondary font-medium">Click to select file or drag & drop</p>
-                </div>
-                <input
-                  type="file"
-                  className="hidden"
-                  accept=".xlsx,.xls,.csv"
-                  onChange={handleFileUpload}
-                  disabled={uploading}
-                />
-              </label>
-            </div>
-            
-            {uploading && (
-              <div className="text-xs text-text-secondary flex items-center justify-center gap-2">
-                <div className="w-3.5 h-3.5 border-2 border-text-secondary border-t-transparent rounded-full animate-spin" />
-                Processing import...
-              </div>
-            )}
-            
-            {importResult && (
-              <div className="p-3 bg-surface-secondary/40 border border-border/40 rounded-xl text-xs space-y-2">
-                <p className="font-semibold text-text-primary">{importResult.message}</p>
-                {importResult.errors && importResult.errors.length > 0 && (
-                  <div className="max-h-24 overflow-y-auto text-danger space-y-1 pr-1 border-t border-border/30 pt-1.5 mt-1.5">
-                    {importResult.errors.map((err, idx) => (
-                      <p key={idx} className="break-all">{err}</p>
-                    ))}
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
 
           <p className="text-center text-sm text-text-secondary">
             Already have an account?{' '}
