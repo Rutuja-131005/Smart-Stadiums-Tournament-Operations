@@ -132,8 +132,8 @@ export default function Register() {
                 onChange={(e) => setForm({ ...form, password: e.target.value })}
                 className="input-field"
                 required
-                minLength={6}
-                placeholder="Minimum 6 characters"
+                minLength={8}
+                placeholder="Min 8 chars (uppercase, number, symbol)"
               />
             </div>
             <div>

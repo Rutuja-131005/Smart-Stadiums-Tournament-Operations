@@ -7,7 +7,7 @@ describe('Zod Validation Schemas', () => {
       const payload = {
         name: 'John Doe',
         email: 'john@example.com',
-        password: 'password123',
+        password: 'Password123!',
         role: 'fan',
         preferredLanguage: 'en',
       };
@@ -19,7 +19,7 @@ describe('Zod Validation Schemas', () => {
       const payload = {
         name: 'John Doe',
         email: 'not-an-email',
-        password: 'password123',
+        password: 'Password123!',
       };
       const result = registerSchema.safeParse(payload);
       expect(result.success).toBe(false);

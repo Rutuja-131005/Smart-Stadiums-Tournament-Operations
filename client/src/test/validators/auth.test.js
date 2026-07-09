@@ -19,7 +19,7 @@ describe('Client Zod Schemas', () => {
       const res = registerSchema.safeParse({
         name: 'New Fan',
         email: 'newfan@fifa2026.com',
-        password: 'password123',
+        password: 'Password123!',
         role: 'fan',
       });
       expect(res.success).toBe(true);
