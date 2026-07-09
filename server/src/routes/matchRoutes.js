@@ -10,7 +10,9 @@ router.get('/', apiCache.middleware('matches', 10000), async (req, res, next) =>
     const filter = {};
     if (req.query.stadium) filter.stadium = req.query.stadium;
     if (req.query.status) filter.status = req.query.status;
-    const matches = await matchService.getMatches(filter);
+    const page = parseInt(req.query.page, 10) || 1;
+    const limit = parseInt(req.query.limit, 10) || 50;
+    const matches = await matchService.getMatches(filter, page, limit);
     res.json({ success: true, data: matches });
   } catch (err) {
     next(err);

@@ -6,14 +6,19 @@ import { AppError } from '../utils/AppError.js';
  */
 class MatchService {
   /**
-   * Retrieves a list of matches based on filters.
+   * Retrieves a list of matches based on filters and optional pagination.
    * @param {object} [filter={}] - Filter criteria (e.g. stadium, status).
+   * @param {number} [page=1] - Page number.
+   * @param {number} [limit=50] - Items per page.
    * @returns {Promise<Array<object>>} Sorted and populated list of matches.
    */
-  async getMatches(filter = {}) {
+  async getMatches(filter = {}, page = 1, limit = 50) {
+    const skip = (Math.max(1, page) - 1) * Math.max(1, limit);
     return Match.find(filter)
       .populate('stadium', 'name city capacity')
-      .sort({ scheduledAt: 1 });
+      .sort({ scheduledAt: 1 })
+      .skip(skip)
+      .limit(Math.min(100, limit));
   }
 
   /**
