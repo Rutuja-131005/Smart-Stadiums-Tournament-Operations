@@ -3,20 +3,16 @@ import { createContext, useContext, useState, useEffect } from 'react';
 const ThemeContext = createContext(null);
 
 export const ThemeProvider = ({ children }) => {
-  const [darkMode, setDarkMode] = useState(() => {
-    const stored = localStorage.getItem('theme');
-    if (stored) return stored === 'dark';
-    return false; // Default to light mode
-  });
+  const [darkMode, setDarkMode] = useState(true);
   const [highContrast, setHighContrast] = useState(() => localStorage.getItem('highContrast') === 'true');
   const [reducedMotion, setReducedMotion] = useState(() =>
     window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false
   );
 
   useEffect(() => {
-    document.documentElement.classList.toggle('dark', darkMode);
-    document.documentElement.classList.toggle('light', !darkMode);
-    localStorage.setItem('theme', darkMode ? 'dark' : 'light');
+    document.documentElement.classList.add('dark');
+    document.documentElement.classList.remove('light');
+    localStorage.setItem('theme', 'dark');
   }, [darkMode]);
 
   useEffect(() => {

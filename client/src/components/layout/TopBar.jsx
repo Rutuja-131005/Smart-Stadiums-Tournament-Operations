@@ -3,7 +3,6 @@ import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../../contexts/AuthContext';
 import { Icons, breadcrumbLabels } from './Icons';
-import ThemeToggle from './ThemeToggle';
 import NotificationBell from './NotificationBell';
 
 export default function TopBar({ sidebarOpen, setSidebarOpen }) {
@@ -43,12 +42,6 @@ export default function TopBar({ sidebarOpen, setSidebarOpen }) {
 
         {/* Actions */}
         <div className="flex items-center gap-1">
-          {/* Search */}
-          <button className="btn-icon hidden sm:flex" aria-label="Search" title="Search">
-            {Icons.search}
-          </button>
-
-          <ThemeToggle />
 
           {/* Notifications */}
           {user && <NotificationBell />}
