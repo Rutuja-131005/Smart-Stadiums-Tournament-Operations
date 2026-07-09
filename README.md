@@ -208,20 +208,6 @@ npm run seed
 
 ```bash
 npm run dev
-```
-
----
-
-### Demo Accounts
-
-| Role | Email | Password |
-|------|-------|----------|
-| Admin | admin@fifa2026.com | admin123 |
-| Organizer | organizer@fifa2026.com | staff123 |
-| Security | security@fifa2026.com | security123 |
-| Volunteer | volunteer@fifa2026.com | volunteer123 |
-| Fan | fan@fifa2026.com | fan123 |
-
 ---
 
 # 📁 Project Structure
