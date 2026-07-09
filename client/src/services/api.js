@@ -33,6 +33,7 @@ export const authAPI = {
   getMe: () => api.get('/auth/me'),
   updateAccessibility: (data) => api.patch('/auth/me/accessibility', data),
   updateLanguage: (lang) => api.patch('/auth/me/language', { language: lang }),
+  importExcel: (formData) => api.post('/auth/import-excel', formData, { headers: { 'Content-Type': 'multipart/form-data' } }),
 };
 
 export const stadiumAPI = {
