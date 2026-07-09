@@ -26,31 +26,6 @@ export const registerUser = async ({ name, email, password, role = 'fan', prefer
   const token = generateToken(user._id);
   logger.info(`[Auth] User registered successfully: ${email} (${validRole})`);
 
-  // Persist to users.db.json if not in testing/production filesystem restrictions
-  if (process.env.NODE_ENV !== 'test') {
-    try {
-      const dbPath = path.join(process.cwd(), 'users.db.json');
-      let usersList = [];
-      if (fs.existsSync(dbPath)) {
-        const content = fs.readFileSync(dbPath, 'utf8');
-        usersList = JSON.parse(content);
-      }
-      if (!usersList.some((acc) => acc.email === email)) {
-        usersList.push({
-          name,
-          email,
-          password,
-          role: validRole,
-          preferredLanguage,
-        });
-        fs.writeFileSync(dbPath, JSON.stringify(usersList, null, 2), 'utf8');
-        logger.info(`[Auth] Saved registered credentials to users.db.json: ${email}`);
-      }
-    } catch (err) {
-      logger.warn(`[Auth] Failed to write to users.db.json: ${err.message}`);
-    }
-  }
-
   return { user, token };
 };
 

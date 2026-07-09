@@ -76,23 +76,6 @@ const seedDatabase = async () => {
   const [metlife, azteca, bcplace] = stadiums;
 
   const demoAccounts = [...getDemoAccounts()];
-  try {
-    const dbPath = path.join(process.cwd(), 'users.db.json');
-    if (fs.existsSync(dbPath)) {
-      const content = fs.readFileSync(dbPath, 'utf8');
-      const extraUsers = JSON.parse(content);
-      if (Array.isArray(extraUsers)) {
-        // Only seed if they don't already exist in the demoAccounts list
-        extraUsers.forEach((extra) => {
-          if (!demoAccounts.some((acc) => acc.email === extra.email)) {
-            demoAccounts.push(extra);
-          }
-        });
-      }
-    }
-  } catch (err) {
-    logger.warn(`Failed to read extra users from users.db.json: ${err.message}`);
-  }
 
   const users = await Promise.all(
     demoAccounts.map((account, idx) =>
