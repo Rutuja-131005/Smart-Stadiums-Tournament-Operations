@@ -56,10 +56,16 @@ export const AuthProvider = ({ children }) => {
     return data.data;
   };
 
+  const updateLanguage = async (language) => {
+    const { data } = await authAPI.updateLanguage(language);
+    setUser(data.data);
+    return data.data;
+  };
+
   const hasRole = (...roles) => user && (roles.includes(user.role) || user.role === 'admin');
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, register, logout, updateAccessibility, hasRole, loadUser }}>
+    <AuthContext.Provider value={{ user, loading, login, register, logout, updateAccessibility, updateLanguage, hasRole, loadUser }}>
       {children}
     </AuthContext.Provider>
   );

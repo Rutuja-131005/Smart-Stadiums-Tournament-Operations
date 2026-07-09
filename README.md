@@ -3,6 +3,9 @@
 
 A production-ready full-stack web application that improves stadium operations and enhances the tournament experience for fans, organizers, volunteers, venue staff, and security teams.
 
+**Live Deployed Platform:** [https://smart-stadiums-6p7vbn2sca-uc.a.run.app/](https://smart-stadiums-6p7vbn2sca-uc.a.run.app/)
+
+
 ![Tech Stack](https://img.shields.io/badge/React-Vite-61DAFB?style=flat&logo=react)
 ![Node.js](https://img.shields.io/badge/Node.js-Express-339933?style=flat&logo=node.js)
 ![MongoDB](https://img.shields.io/badge/MongoDB-Mongoose-47A248?style=flat&logo=mongodb)

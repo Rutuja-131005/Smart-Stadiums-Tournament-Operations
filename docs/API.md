@@ -1,8 +1,8 @@
 # Smart Stadiums API Documentation
 
-Base URL: `http://localhost:5000/api` (development) | `https://your-service.run.app/api` (production)
+Base URL: `http://localhost:5000/api` (development) | `https://smart-stadiums-6p7vbn2sca-uc.a.run.app/api` (production)
 
-All authenticated endpoints require header: `Authorization: Bearer <JWT_TOKEN>`
+All authenticated endpoints require header: `Authorization: Bearer <JWT_TOKEN>
 
 ---
 
