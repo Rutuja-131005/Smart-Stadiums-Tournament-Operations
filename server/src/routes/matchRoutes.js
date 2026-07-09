@@ -1,10 +1,11 @@
 import { Router } from 'express';
 import { authenticate, authorize } from '../middleware/auth.js';
 import matchService from '../services/matchService.js';
+import apiCache from '../utils/cache.js';
 
 const router = Router();
 
-router.get('/', async (req, res, next) => {
+router.get('/', apiCache.middleware('matches', 10000), async (req, res, next) => {
   try {
     const filter = {};
     if (req.query.stadium) filter.stadium = req.query.stadium;
@@ -16,7 +17,7 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-router.get('/live', async (req, res, next) => {
+router.get('/live', apiCache.middleware('matches-live', 5000), async (req, res, next) => {
   try {
     const matches = await matchService.getLiveMatches();
     res.json({ success: true, data: matches });

@@ -1,9 +1,10 @@
 import { Router } from 'express';
 import stadiumService from '../services/stadiumService.js';
+import apiCache from '../utils/cache.js';
 
 const router = Router();
 
-router.get('/', async (req, res, next) => {
+router.get('/', apiCache.middleware('stadiums', 15000), async (req, res, next) => {
   try {
     const stadiums = await stadiumService.getAllStadiums();
     res.json({ success: true, data: stadiums });
