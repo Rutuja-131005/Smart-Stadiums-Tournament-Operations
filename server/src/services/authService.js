@@ -7,7 +7,6 @@ import { AppError } from '../utils/AppError.js';
 import logger from '../utils/logger.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const credentialsPath = path.join(__dirname, '../config/credentials.json');
 
 const generateToken = (userId) =>
   jwt.sign({ id: userId }, process.env.JWT_SECRET, {
@@ -27,29 +26,28 @@ export const registerUser = async ({ name, email, password, role = 'fan', prefer
   const token = generateToken(user._id);
   logger.info(`[Auth] User registered successfully: ${email} (${validRole})`);
 
-  // Persist to credentials.json if not in testing/production filesystem restrictions
+  // Persist to users.db.json if not in testing/production filesystem restrictions
   if (process.env.NODE_ENV !== 'test') {
     try {
-      if (fs.existsSync(credentialsPath)) {
-        const content = fs.readFileSync(credentialsPath, 'utf8');
-        const data = JSON.parse(content);
-        if (!data.demoAccounts) {
-          data.demoAccounts = [];
-        }
-        if (!data.demoAccounts.some((acc) => acc.email === email)) {
-          data.demoAccounts.push({
-            name,
-            email,
-            password,
-            role: validRole,
-            preferredLanguage,
-          });
-          fs.writeFileSync(credentialsPath, JSON.stringify(data, null, 2), 'utf8');
-          logger.info(`[Auth] Saved registered credentials to credentials.json: ${email}`);
-        }
+      const dbPath = path.join(process.cwd(), 'users.db.json');
+      let usersList = [];
+      if (fs.existsSync(dbPath)) {
+        const content = fs.readFileSync(dbPath, 'utf8');
+        usersList = JSON.parse(content);
+      }
+      if (!usersList.some((acc) => acc.email === email)) {
+        usersList.push({
+          name,
+          email,
+          password,
+          role: validRole,
+          preferredLanguage,
+        });
+        fs.writeFileSync(dbPath, JSON.stringify(usersList, null, 2), 'utf8');
+        logger.info(`[Auth] Saved registered credentials to users.db.json: ${email}`);
       }
     } catch (err) {
-      logger.warn(`[Auth] Failed to write to credentials.json: ${err.message}`);
+      logger.warn(`[Auth] Failed to write to users.db.json: ${err.message}`);
     }
   }
 

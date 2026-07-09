@@ -172,9 +172,6 @@ export default function Login() {
                 />
                 <span className="text-text-secondary">Remember me</span>
               </label>
-              <a href="#" className="text-accent hover:text-accent-hover font-medium" onClick={(e) => e.preventDefault()}>
-                Forgot password?
-              </a>
             </div>
 
             <button type="submit" className="btn-primary w-full py-3 mt-2" disabled={loading}>
