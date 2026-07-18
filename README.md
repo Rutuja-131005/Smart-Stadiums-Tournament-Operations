@@ -349,19 +349,26 @@ This platform directly addresses all core domains of **Smart Stadiums & Tourname
 
 Supports deployment to:
 
-* Google Cloud Run
-* Docker
-* Docker Compose
+* **Vercel** (Frontend Client)
+* Google Cloud Run (Backend API)
+* Docker & Docker Compose
 * MongoDB Atlas
 
-Build:
+### ⚡ Vercel Deployment (Frontend)
+The website is fully configured for deployment on **Vercel**:
 
+1. **Option A (Recommended)**: Set Vercel's **Root Directory** to `client/` in the Vercel dashboard. It will automatically build and route using the configuration in [client/vercel.json](client/vercel.json).
+2. **Option B (Root-Level)**: Deploy the repository root directly to Vercel. It will use the root [vercel.json](vercel.json) and execute the custom root `build` script to install client dependencies and build the React app.
+
+Make sure to set the `VITE_API_URL` and `VITE_SOCKET_URL` environment variables in your Vercel project settings to point to your backend API.
+
+### 🐳 Docker & Google Cloud Run (Full Monorepo / Backend)
+Build container:
 ```bash
 docker build -t smart-stadiums .
 ```
 
-Deploy:
-
+Deploy to Google Cloud Run:
 ```bash
 gcloud builds submit --config cloudbuild.yaml
 ```
