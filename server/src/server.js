@@ -67,9 +67,13 @@ initializeSocket(io);
 
 const startDB = async () => {
   if (process.env.NODE_ENV !== 'test') {
-    await connectDB();
-    // Auto-seed database if empty
-    await seedDatabase();
+    try {
+      await connectDB();
+      // Auto-seed database if empty
+      await seedDatabase();
+    } catch (err) {
+      console.error('DB startup error (non-fatal on Vercel):', err.message);
+    }
   }
 };
 startDB();

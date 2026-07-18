@@ -1,43 +1,21 @@
 {
-  "version": 2,
-  "cleanUrls": true,
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "client/dist"
-      }
-    },
-    {
-      "src": "api/index.js",
-      "use": "@vercel/node"
+  "buildCommand": "cd client && npm install --include=dev && npx vite build",
+  "outputDirectory": "client/dist",
+  "installCommand": "npm install",
+  "framework": null,
+  "functions": {
+    "api/index.js": {
+      "includeFiles": "server/**"
     }
-  ],
-  "routes": [
+  },
+  "rewrites": [
     {
-      "src": "/api/:path*",
-      "dest": "api/index.js"
+      "source": "/api/:path*",
+      "destination": "/api/index.js"
     },
     {
-      "src": "/socket.io/:path*",
-      "dest": "api/index.js"
-    },
-    {
-      "src": "/assets/(.*)",
-      "dest": "client/dist/assets/$1"
-    },
-    {
-      "src": "/favicon.svg",
-      "dest": "client/dist/favicon.svg"
-    },
-    {
-      "src": "/logo.jpg",
-      "dest": "client/dist/logo.jpg"
-    },
-    {
-      "src": "/((?!api|socket.io).*)",
-      "dest": "client/dist/index.html"
+      "source": "/((?!api).*)",
+      "destination": "/index.html"
     }
   ]
 }
