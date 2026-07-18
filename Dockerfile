@@ -11,6 +11,10 @@ COPY server/package*.json ./
 RUN npm ci --omit=dev
 COPY server/ ./
 
+# Pre-download mongodb-memory-server binary
+ENV MONGOMS_DOWNLOAD_DIR=/tmp/mongodb-binaries
+RUN node -e "require('mongodb-memory-server').MongoMemoryServer.create().then(ms => ms.stop())"
+
 FROM node:20-slim AS production
 
 RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
@@ -21,6 +25,7 @@ ENV MONGOMS_DOWNLOAD_DIR=/tmp/mongodb-binaries
 
 COPY --from=builder /app/server ./server
 COPY --from=builder /app/client/dist ./client/dist
+COPY --from=builder /tmp/mongodb-binaries /tmp/mongodb-binaries
 
 EXPOSE 8080
 ENV PORT=8080
