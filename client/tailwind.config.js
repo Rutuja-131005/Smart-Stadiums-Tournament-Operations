@@ -41,8 +41,8 @@ export default {
         },
         text: {
           primary: '#F9FAFB',
-          secondary: '#9CA3AF',
-          muted: '#6B7280',
+          secondary: '#6B7280', // Better contrast (was #9CA3AF)
+          muted: '#4B5563', // Better contrast (was #6B7280)
         },
         // Keep FIFA colors for specific branding
         fifa: {

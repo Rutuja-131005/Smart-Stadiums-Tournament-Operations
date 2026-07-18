@@ -17,6 +17,7 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen, collapsed, setCol
         ${collapsed ? 'w-[72px]' : 'w-64'}`}
       style={{ backgroundColor: '#1F2937' }}
       aria-label="Main navigation"
+      role="navigation"
     >
       {/* Logo */}
       <div className={`flex items-center gap-3 border-b border-white/10 ${collapsed ? 'px-4 py-5 justify-center' : 'px-5 py-5'}`}>

@@ -19,7 +19,7 @@ export default function TopBar({ sidebarOpen, setSidebarOpen }) {
   }, [userDropdown]);
 
   return (
-    <header className="sticky top-0 z-40 bg-surface/80 dark:bg-surface/80 bg-white/80 backdrop-blur-glass border-b border-border dark:border-border border-gray-200 px-4 lg:px-6 py-3">
+    <header role="banner" className="sticky top-0 z-40 bg-surface/80 dark:bg-surface/80 bg-white/80 backdrop-blur-glass border-b border-border dark:border-border border-gray-200 px-4 lg:px-6 py-3">
       <div className="flex items-center gap-4">
         {/* Mobile menu button */}
         <button className="lg:hidden btn-icon" onClick={() => setSidebarOpen(!sidebarOpen)} aria-label="Toggle menu">
