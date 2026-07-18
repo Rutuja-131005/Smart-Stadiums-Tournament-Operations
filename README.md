@@ -3,7 +3,7 @@
 
 An AI-powered operational intelligence platform that enables organizers to manage stadiums more efficiently while enhancing fan experience through Generative AI, real-time analytics, geospatial intelligence, and predictive decision support.
 
-🌐 **Live Demo:** [https://smart-stadiums-tournament-operations-1ylm-jpqem3xng.vercel.app/](https://smart-stadiums-tournament-operations-1ylm-jpqem3xng.vercel.app/)
+🌐 **Live Deployed Platform:** [https://smart-stadiums-tournament-operations-1ylm-jpqem3xng.vercel.app/](https://smart-stadiums-tournament-operations-1ylm-jpqem3xng.vercel.app/)
 
 ---
 
@@ -18,7 +18,6 @@ Our solution transforms stadium operations into an AI-driven command center capa
 ## 💡 Our Solution
 
 Smart Stadiums is a cloud-native platform that combines:
-
 * 🤖 **Google Gemini AI**
 * 📊 **Real-time operational analytics**
 * 🗺 **Geospatial stadium intelligence**
@@ -30,12 +29,10 @@ Smart Stadiums is a cloud-native platform that combines:
 
 to help organizers make faster, safer, and smarter decisions throughout tournament operations.
 
----
-
 ## ✨ Key Features
 
 ### 🤖 AI Operations Assistant
-* Natural language conversations
+* Natural language Q&A for fans and volunteers
 * Match & venue assistance
 * Multilingual translation
 * Accessibility guidance
@@ -44,7 +41,7 @@ to help organizers make faster, safer, and smarter decisions throughout tourname
 ### 👥 Crowd Intelligence
 * Live crowd density monitoring
 * Congestion heatmaps
-* Queue prediction
+* Queue prediction (15-min forecasts)
 * AI evacuation recommendations
 
 ### 🗺 Smart Stadium Navigation
@@ -74,48 +71,58 @@ to help organizers make faster, safer, and smarter decisions throughout tourname
 * Energy & waste analytics
 * AI sustainability recommendations
 
----
-
 ## 🧠 AI Integration
 
 Google Gemini powers intelligent workflows across the platform:
-* Fan Assistant
-* Crowd Risk Analysis
-* Transportation Optimization
-* Security Recommendations
-* Operational Summaries
-* Match Reports
-* Sustainability Insights
-* Volunteer Assistance
-* Executive Decision Support
-
----
+* **Fan Assistant**: Context-aware Q&A about venues, matches, and navigation
+* **Crowd Risk Analysis**: AI analysis of zone trends with evacuation recommendations
+* **Transportation Optimization**: Route recommendations based on real-time crowd data
+* **Security Recommendations**: Intelligent threat assessment and response recommendations
+* **Operational Summaries**: AI-generated executive dashboards for organizers
+* **Match Reports**: Automated post-match summaries from live score data
+* **Sustainability Insights**: AI recommendations for carbon footprint reduction
+* **Volunteer Assistance**: Real-time Q&A support for stadium volunteers
+* **Executive Decision Support**: Summarized metrics for venue organizers
 
 ## 🏗️ System Architecture
 
 ```
 Users (Fans • Staff • Volunteers • Security • Organizers)
-                  │
-React + Tailwind + Leaflet + Chart.js
-Socket.IO + JWT Authentication
-                  │
-Node.js + Express + Google Gemini AI
-REST APIs + WebSockets
-                  │
-MongoDB + Geospatial Intelligence
+                         │
+      React + Tailwind + Leaflet + Chart.js
+         Socket.IO + JWT Authentication
+                         │
+               Node.js + Express
+                Google Gemini AI
+             REST APIs + WebSockets
+                         │
+                     MongoDB
+             Geospatial Intelligence
 ```
-
----
 
 ## 🛠️ Technology Stack
 
-* **Frontend**: React (Vite), Tailwind CSS, Framer Motion, Leaflet, Chart.js, Socket.IO Client
-* **Backend**: Node.js, Express.js, JWT, Helmet, Socket.IO
-* **Database**: MongoDB, Mongoose
-* **AI**: Google Gemini API
-* **Deployment**: Vercel (Frontend & Serverless Backend)
+### Frontend
+* React (Vite)
+* Tailwind CSS
+* Framer Motion
+* Leaflet
+* Chart.js
+* Socket.IO Client
 
----
+### Backend
+* Node.js
+* Express.js
+* JWT
+* Helmet
+* Socket.IO
+
+### Database
+* MongoDB
+* Mongoose
+
+### AI
+* Google Gemini API
 
 ## 📈 Innovation
 
@@ -129,8 +136,6 @@ Unlike traditional dashboards that only visualize information, our platform unde
 * AI-generated operational reports
 * Unified command center for all stakeholders
 
----
-
 ## ⚡ Engineering Highlights
 * Secure Role-Based Authentication
 * Real-Time WebSocket Communication
@@ -139,29 +144,21 @@ Unlike traditional dashboards that only visualize information, our platform unde
 * API Response Caching
 * Automated Testing
 * CI/CD Ready
-* Cloud-Native Deployment
-
----
 
 ## 🧪 Testing
-
 * ✔ Jest + Supertest (API & Auth Testing)
 * ✔ Vitest + React Testing Library (Component & Validation Testing)
-
----
 
 ## 🎯 Problem Statement Coverage
 
 | Requirement | Solution |
 | --- | --- |
-| **Smart Stadium Operations** | AI Command Center |
-| **Crowd Management** | Live Monitoring + Prediction |
-| **Tournament Management** | Match Scheduling & Analytics |
-| **AI Integration** | Google Gemini |
-| **Security** | AI Threat Assessment |
-| **Sustainability** | Carbon & Energy Analytics |
-
----
+| Smart Stadium Operations | AI Command Center |
+| Crowd Management | Live Monitoring + Prediction |
+| Tournament Management | Match Scheduling & Analytics |
+| AI Integration | Google Gemini |
+| Security | AI Threat Assessment |
+| Sustainability | Carbon & Energy Analytics |
 
 ## 🚀 Deployment
 
@@ -180,8 +177,6 @@ The project is fully configured for deployment from the repository root on **Ver
 
 **Live Deployed Platform:** [https://smart-stadiums-tournament-operations-1ylm-jpqem3xng.vercel.app/](https://smart-stadiums-tournament-operations-1ylm-jpqem3xng.vercel.app/)
 
----
-
 ## 🔮 Future Scope
 * Indoor AR Navigation
 * Digital Twin Stadium
@@ -192,10 +187,8 @@ The project is fully configured for deployment from the repository root on **Ver
 * Smart Parking Optimization
 * Progressive Web App
 
----
-
 ## 🏅 Impact
 
 Smart Stadiums & Tournament Operations transforms conventional stadium management into an AI-powered operational intelligence platform, enabling safer venues, smarter decision-making, improved sustainability, and an enhanced fan experience at global sporting events.
 
-*"Building the AI Command Center for the Future of Global Sporting Events."*
+> *Building the AI Command Center for the Future of Global Sporting Events.*
