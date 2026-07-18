@@ -8,16 +8,20 @@
       "config": {
         "distDir": "client/dist"
       }
+    },
+    {
+      "src": "api/index.js",
+      "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/api/:path*",
-      "dest": "https://smart-stadiums-6p7vbn2sca-uc.a.run.app/api/:path*"
+      "dest": "api/index.js"
     },
     {
       "src": "/socket.io/:path*",
-      "dest": "https://smart-stadiums-6p7vbn2sca-uc.a.run.app/socket.io/:path*"
+      "dest": "api/index.js"
     },
     {
       "src": "/assets/(.*)",

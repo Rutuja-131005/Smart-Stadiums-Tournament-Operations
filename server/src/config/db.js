@@ -29,7 +29,11 @@ const connectDB = async () => {
   } catch (memError) {
     logger.error('Failed to start in-memory MongoDB:', memError.message);
     logger.error('Please install MongoDB or Docker to run this application.');
-    process.exit(1);
+    if (process.env.VERCEL) {
+      logger.warn('Running on Vercel: Database connection error ignored to allow serverless boot.');
+    } else {
+      process.exit(1);
+    }
   }
 };
 

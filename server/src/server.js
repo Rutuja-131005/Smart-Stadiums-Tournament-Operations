@@ -165,7 +165,7 @@ app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
-if (process.env.NODE_ENV !== 'test') {
+if (process.env.NODE_ENV !== 'test' && !process.env.VERCEL) {
   const activeServer = server.listen(PORT, () => {
     logger.info(`Server running on port ${PORT}`);
   });

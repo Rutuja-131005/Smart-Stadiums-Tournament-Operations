@@ -4,8 +4,7 @@
 
 An enterprise-grade, AI-powered platform designed to enhance stadium operations and elevate the tournament experience for **fans, organizers, volunteers, security personnel, and venue staff**. The application combines **Generative AI, real-time analytics, geospatial intelligence, and operational dashboards** to support intelligent decision-making during large-scale sporting events.
 
-**Live Deployed Frontend:** [https://smart-stadiums-tournament-operations-1ylm-jpqem3xng.vercel.app/](https://smart-stadiums-tournament-operations-1ylm-jpqem3xng.vercel.app/)  
-**Live Deployed Backend API:** [https://smart-stadiums-6p7vbn2sca-uc.a.run.app/](https://smart-stadiums-6p7vbn2sca-uc.a.run.app/)
+**Live Deployed Platform:** [https://smart-stadiums-tournament-operations-1ylm-jpqem3xng.vercel.app/](https://smart-stadiums-tournament-operations-1ylm-jpqem3xng.vercel.app/)
 
 ---
 
@@ -348,35 +347,20 @@ This platform directly addresses all core domains of **Smart Stadiums & Tourname
 
 # 🚀 Deployment
 
-Supports deployment to:
+The platform is designed to be hosted entirely on **Vercel** as a unified deployment containing both the static React frontend client and the Express backend (deployed as Vercel serverless Node.js functions).
 
-* **Vercel** (Frontend Client)
-* Google Cloud Run (Backend API)
-* Docker & Docker Compose
-* MongoDB Atlas
+### ⚡ Vercel Deployment (Unified Frontend & Backend)
 
-### ⚡ Vercel Deployment (Frontend)
-The website is fully configured for deployment on **Vercel**:
+The project is fully configured for deployment from the repository root on **Vercel**:
 
-1. **Option A (Recommended)**: Set Vercel's **Root Directory** to `client/` in the Vercel dashboard. It will automatically build and route using the configuration in [client/vercel.json](client/vercel.json).
-2. **Option B (Root-Level)**: Deploy the repository root directly to Vercel. It will use the root [vercel.json](vercel.json) and execute the custom root `build` script to install client dependencies and build the React app.
+1. Deploy the repository root directly to Vercel.
+2. It will automatically detect the root [vercel.json](vercel.json), build the static React frontend from `/client`, and compile the serverless Node.js functions from `/api/index.js`.
+3. Set the following environment variables in your Vercel project settings:
+   - `MONGODB_URI`: Your production MongoDB Atlas connection string (required).
+   - `GEMINI_API_KEY`: Your Google Gemini API key (required).
+   - `JWT_SECRET`: A secret key for JWT token signature (required).
 
-By default, the proxy configuration in the `vercel.json` files automatically routes all incoming `/api/*` and `/socket.io/*` requests to the production Google Cloud Run API at `https://smart-stadiums-6p7vbn2sca-uc.a.run.app`.
-
-### 🐳 Docker & Google Cloud Run (Full Monorepo / Backend)
-Build container:
-```bash
-docker build -t smart-stadiums .
-```
-
-Deploy to Google Cloud Run:
-```bash
-gcloud builds submit --config cloudbuild.yaml
-```
-
-**Live Deployed Backend Platform:** [https://smart-stadiums-6p7vbn2sca-uc.a.run.app/](https://smart-stadiums-6p7vbn2sca-uc.a.run.app/)
-
-**Live Deployed Vercel Frontend:** [https://smart-stadiums-tournament-operations-1ylm-jpqem3xng.vercel.app/](https://smart-stadiums-tournament-operations-1ylm-jpqem3xng.vercel.app/)
+**Live Deployed Platform:** [https://smart-stadiums-tournament-operations-1ylm-jpqem3xng.vercel.app/](https://smart-stadiums-tournament-operations-1ylm-jpqem3xng.vercel.app/)
 
 ---
 
