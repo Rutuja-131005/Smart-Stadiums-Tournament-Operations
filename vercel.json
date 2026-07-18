@@ -13,11 +13,11 @@
   "routes": [
     {
       "src": "/api/:path*",
-      "dest": "https://YOUR_BACKEND_URL/api/:path*"
+      "dest": "https://smart-stadiums-6p7vbn2sca-uc.a.run.app/api/:path*"
     },
     {
       "src": "/socket.io/:path*",
-      "dest": "https://YOUR_BACKEND_URL/socket.io/:path*"
+      "dest": "https://smart-stadiums-6p7vbn2sca-uc.a.run.app/socket.io/:path*"
     },
     {
       "src": "/assets/(.*)",

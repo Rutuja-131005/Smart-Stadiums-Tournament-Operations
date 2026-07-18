@@ -4,7 +4,8 @@
 
 An enterprise-grade, AI-powered platform designed to enhance stadium operations and elevate the tournament experience for **fans, organizers, volunteers, security personnel, and venue staff**. The application combines **Generative AI, real-time analytics, geospatial intelligence, and operational dashboards** to support intelligent decision-making during large-scale sporting events.
 
-**Live Deployed Platform:** [https://smart-stadiums-6p7vbn2sca-uc.a.run.app/](https://smart-stadiums-6p7vbn2sca-uc.a.run.app/)
+**Live Deployed Frontend:** [https://smart-stadiums-tournament-operations-1ylm-jpqem3xng.vercel.app/](https://smart-stadiums-tournament-operations-1ylm-jpqem3xng.vercel.app/)  
+**Live Deployed Backend API:** [https://smart-stadiums-6p7vbn2sca-uc.a.run.app/](https://smart-stadiums-6p7vbn2sca-uc.a.run.app/)
 
 ---
 
@@ -360,7 +361,7 @@ The website is fully configured for deployment on **Vercel**:
 1. **Option A (Recommended)**: Set Vercel's **Root Directory** to `client/` in the Vercel dashboard. It will automatically build and route using the configuration in [client/vercel.json](client/vercel.json).
 2. **Option B (Root-Level)**: Deploy the repository root directly to Vercel. It will use the root [vercel.json](vercel.json) and execute the custom root `build` script to install client dependencies and build the React app.
 
-Make sure to set the `VITE_API_URL` and `VITE_SOCKET_URL` environment variables in your Vercel project settings to point to your backend API.
+By default, the proxy configuration in the `vercel.json` files automatically routes all incoming `/api/*` and `/socket.io/*` requests to the production Google Cloud Run API at `https://smart-stadiums-6p7vbn2sca-uc.a.run.app`.
 
 ### 🐳 Docker & Google Cloud Run (Full Monorepo / Backend)
 Build container:
@@ -373,7 +374,9 @@ Deploy to Google Cloud Run:
 gcloud builds submit --config cloudbuild.yaml
 ```
 
-**Live Deployed Platform:** [https://smart-stadiums-6p7vbn2sca-uc.a.run.app/](https://smart-stadiums-6p7vbn2sca-uc.a.run.app/)
+**Live Deployed Backend Platform:** [https://smart-stadiums-6p7vbn2sca-uc.a.run.app/](https://smart-stadiums-6p7vbn2sca-uc.a.run.app/)
+
+**Live Deployed Vercel Frontend:** [https://smart-stadiums-tournament-operations-1ylm-jpqem3xng.vercel.app/](https://smart-stadiums-tournament-operations-1ylm-jpqem3xng.vercel.app/)
 
 ---
 
