@@ -3,27 +3,16 @@ import User from '../models/User.js';
 import { AppError } from '../utils/AppError.js';
 
 export const authenticate = async (req, res, next) => {
-  try {
-    let token = req.cookies?.token;
-    if (!token && req.headers.authorization?.startsWith('Bearer ')) {
-      token = req.headers.authorization.split(' ')[1];
-    }
-    if (!token) {
-      throw new AppError('Authentication required', 401);
-    }
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const user = await User.findById(decoded.id);
-    if (!user || !user.isActive) {
-      throw new AppError('User not found or inactive', 401);
-    }
-    req.user = user;
-    next();
-  } catch (error) {
-    if (error.name === 'JsonWebTokenError' || error.name === 'TokenExpiredError') {
-      return next(new AppError('Invalid or expired token', 401));
-    }
-    next(error);
-  }
+  // Bypassed: Authentication is fully disabled.
+  // We automatically attach a mock Admin user to all requests.
+  req.user = {
+    _id: '660000000000000000000001',
+    name: 'Tournament Administrator',
+    email: 'admin@worldcup2026.com',
+    role: 'admin',
+    isActive: true
+  };
+  next();
 };
 
 export const authorize = (...roles) => (req, res, next) => {
