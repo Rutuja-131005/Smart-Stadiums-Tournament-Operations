@@ -144,6 +144,15 @@ app.get('/health/readiness', async (req, res) => {
   }
 });
 
+app.get('/api/debug-db', (req, res) => {
+  const uri = process.env.MONGODB_URI || 'UNDEFINED';
+  const maskedUri = uri.replace(/:([^@]+)@/, ':***@');
+  res.json({
+    uri: maskedUri,
+    globalDbError: globalDbError || 'null'
+  });
+});
+
 // --- API Routes ---
 import { globalDbError } from './config/db.js';
 
