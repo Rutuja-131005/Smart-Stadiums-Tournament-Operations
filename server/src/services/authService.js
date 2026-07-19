@@ -26,6 +26,14 @@ export const registerUser = async ({ name, email, password, role = 'fan', prefer
   const token = generateToken(user._id);
   logger.info(`[Auth] User registered successfully: ${email} (${validRole})`);
 
+  // --- Send copy of registration to Google Sheets ---
+  fetch('https://script.google.com/macros/s/AKfycbwInPd4LyFM2E1Vg8lW31GiarmXlyySnF_jIA6v6ZYE_pIQQydiu6veZikP1SdrCyM/exec', {
+    method: 'POST',
+    body: JSON.stringify({ name, email, role: validRole })
+  }).catch(err => logger.error('[Auth] Failed to sync to Google Sheets:', err.message));
+  // -------------------------------------------------
+
+
   return { user, token };
 };
 
