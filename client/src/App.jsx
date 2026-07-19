@@ -23,7 +23,7 @@ const NotFound = lazy(() => import('./pages/NotFound'));
 const ProtectedRoute = ({ children, roles }) => {
   const { user, loading, hasRole } = useAuth();
   if (loading) return <LoadingSpinner fullScreen />;
-  if (!user) return <Navigate to="/login" replace />;
+  if (!user) return <Navigate to="/" replace />;
   if (roles && !hasRole(...roles)) return <Navigate to="/dashboard" replace />;
   return children;
 };
@@ -42,8 +42,8 @@ function App() {
         <Routes>
           {/* Landing and Auth routes */}
           <Route path="/" element={user ? <Navigate to="/dashboard" replace /> : <Landing />} />
-          <Route path="/login" element={user ? <Navigate to="/dashboard" replace /> : <Login />} />
-          <Route path="/register" element={user ? <Navigate to="/dashboard" replace /> : <Register />} />
+          <Route path="/login" element={<Navigate to="/dashboard" replace />} />
+          <Route path="/register" element={<Navigate to="/dashboard" replace />} />
 
           {/* Dashboard Layout wrapped routes */}
           <Route element={<Layout />}>

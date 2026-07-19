@@ -67,15 +67,12 @@ export default function Landing() {
           </div>
         </div>
         <div className="flex items-center gap-4">
-          <Link to="/login" className="btn-secondary text-sm px-4 py-2 border-border/60 hover:bg-surface-card">
-            Sign In
-          </Link>
-          <Link to="/login?role=fan" className="btn-primary text-sm px-5 py-2">
-            Get Started
+          <Link to="/dashboard" className="btn-primary text-sm px-5 py-2">
+            Launch Dashboard
           </Link>
         </div>
       </header>
-
+ 
       {/* Hero Section */}
       <section className="relative px-6 pt-20 pb-16 max-w-7xl mx-auto flex flex-col items-center text-center">
         <motion.div
@@ -90,7 +87,7 @@ export default function Landing() {
           </span>
           Next-Gen AI Operational Hub
         </motion.div>
-
+ 
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -99,7 +96,7 @@ export default function Landing() {
         >
           Elevating FIFA World Cup 2026 <span className="gradient-text">Operations with AI</span>
         </motion.h2>
-
+ 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -108,18 +105,15 @@ export default function Landing() {
         >
           A unified, premium operations command center leveraging generative AI to streamline crowd safety, volunteer coordination, venue routing, and real-time decision support.
         </motion.p>
-
+ 
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.3 }}
-          className="flex flex-wrap justify-center gap-4"
+          className="flex justify-center"
         >
-          <Link to="/login" className="btn-primary text-base px-8 py-3.5 shadow-lg">
+          <Link to="/dashboard" className="btn-primary text-lg px-10 py-4 shadow-xl">
             Launch Command Center
-          </Link>
-          <Link to="/login?role=fan" className="btn-secondary text-base px-8 py-3.5 border-border/60 hover:bg-surface-card">
-            Explore Fan Experience
           </Link>
         </motion.div>
       </section>

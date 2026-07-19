@@ -3,25 +3,26 @@ import { authAPI } from '../services/api';
 
 const AuthContext = createContext(null);
 
+const defaultUser = {
+  _id: "660000000000000000000001",
+  name: "Tournament Administrator",
+  email: "admin@worldcup2026.com",
+  role: "admin",
+  preferredLanguage: "en",
+  accessibilitySettings: {
+    highContrast: false,
+    largeText: false,
+    screenReaderOptimized: false
+  }
+};
+
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(defaultUser);
+  const [loading, setLoading] = useState(false);
 
   const loadUser = useCallback(async () => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      setLoading(false);
-      return;
-    }
-    try {
-      const { data } = await authAPI.getMe();
-      setUser(data.data);
-    } catch {
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
-    } finally {
-      setLoading(false);
-    }
+    // Bypassed: user is always logged in as admin
+    setLoading(false);
   }, []);
 
   useEffect(() => {
@@ -29,40 +30,33 @@ export const AuthProvider = ({ children }) => {
   }, [loadUser]);
 
   const login = async (email, password) => {
-    const { data } = await authAPI.login({ email, password });
-    localStorage.setItem('token', data.data.token);
-    localStorage.setItem('user', JSON.stringify(data.data.user));
-    setUser(data.data.user);
-    return data.data.user;
+    setUser(defaultUser);
+    return defaultUser;
   };
 
   const register = async (formData) => {
-    const { data } = await authAPI.register(formData);
-    localStorage.setItem('token', data.data.token);
-    localStorage.setItem('user', JSON.stringify(data.data.user));
-    setUser(data.data.user);
-    return data.data.user;
+    setUser(defaultUser);
+    return defaultUser;
   };
 
   const logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    setUser(null);
+    // Simply redirect to landing page without clearing user session
+    window.location.href = '/';
   };
 
   const updateAccessibility = async (settings) => {
-    const { data } = await authAPI.updateAccessibility(settings);
-    setUser(data.data);
-    return data.data;
+    const updated = { ...user, accessibilitySettings: { ...user.accessibilitySettings, ...settings } };
+    setUser(updated);
+    return updated;
   };
 
   const updateLanguage = async (language) => {
-    const { data } = await authAPI.updateLanguage(language);
-    setUser(data.data);
-    return data.data;
+    const updated = { ...user, preferredLanguage: language };
+    setUser(updated);
+    return updated;
   };
 
-  const hasRole = (...roles) => user && (roles.includes(user.role) || user.role === 'admin');
+  const hasRole = (...roles) => true; // Admin bypasses all checks!
 
   return (
     <AuthContext.Provider value={{ user, loading, login, register, logout, updateAccessibility, updateLanguage, hasRole, loadUser }}>
