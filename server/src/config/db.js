@@ -1,6 +1,8 @@
 import mongoose from 'mongoose';
 import logger from '../utils/logger.js';
 
+export let globalDbError = null;
+
 const connectDB = async () => {
   const uri = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/smart-stadiums';
   const maskedUri = uri.replace(/:([^@]+)@/, ':***@');
@@ -10,9 +12,11 @@ const connectDB = async () => {
     logger.info(`Attempting MongoDB connection to: ${maskedUri}`);
     await mongoose.connect(uri, { serverSelectionTimeoutMS: 5000 });
     logger.info('MongoDB connected successfully');
+    globalDbError = null;
     return;
   } catch (error) {
     logger.warn(`Could not connect to MongoDB at ${maskedUri}: ${error.message}`);
+    globalDbError = error.message;
   }
 
   // On Vercel, don't attempt in-memory server — it won't work in serverless

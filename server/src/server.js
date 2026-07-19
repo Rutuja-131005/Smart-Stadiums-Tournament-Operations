@@ -145,6 +145,19 @@ app.get('/health/readiness', async (req, res) => {
 });
 
 // --- API Routes ---
+import { globalDbError } from './config/db.js';
+
+app.use('/api', (req, res, next) => {
+  if (globalDbError) {
+    return res.status(500).json({ 
+      success: false, 
+      message: 'Database Connection Failed. Check your MONGODB_URI and MongoDB Atlas IP Whitelist.', 
+      error: globalDbError 
+    });
+  }
+  next();
+});
+
 app.use('/api/auth', authRoutes);
 app.use('/api/stadiums', stadiumRoutes);
 app.use('/api/matches', matchRoutes);
