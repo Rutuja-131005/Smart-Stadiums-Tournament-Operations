@@ -84,14 +84,6 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen, collapsed, setCol
                 <p className="text-sm font-medium text-white truncate">{user.name}</p>
                 <p className="text-xs font-semibold capitalize text-fifa-gold">{user.role}</p>
               </div>
-              <button
-                onClick={logout}
-                className="p-1.5 rounded-lg hover:bg-white/10 text-white/70 hover:text-white transition-colors"
-                aria-label="Sign out"
-                title="Sign out"
-              >
-                {Icons.logout}
-              </button>
             </div>
           )}
         </div>

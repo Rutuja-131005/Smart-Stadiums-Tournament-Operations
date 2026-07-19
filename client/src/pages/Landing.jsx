@@ -66,11 +66,6 @@ export default function Landing() {
             <p className="text-[10px] text-accent font-semibold tracking-wider uppercase">FIFA World Cup 2026</p>
           </div>
         </div>
-        <div className="flex items-center gap-4">
-          <Link to="/dashboard" className="btn-primary text-sm px-5 py-2">
-            Launch Dashboard
-          </Link>
-        </div>
       </header>
  
       {/* Hero Section */}

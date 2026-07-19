@@ -66,26 +66,15 @@ export default function TopBar({ sidebarOpen, setSidebarOpen }) {
                     exit={{ opacity: 0, y: -5, scale: 0.95 }}
                     className="absolute right-0 top-full mt-2 w-56 card-glass p-2 border border-border dark:border-border border-gray-200 z-50 lg:hidden"
                   >
-                    <div className="px-3 py-2 mb-1">
+                     <div className="px-3 py-2">
                       <p className="text-sm font-medium text-text-primary">{user.name}</p>
                       <p className="text-xs text-text-muted">{user.email}</p>
-                    </div>
-                    <hr className="border-border dark:border-border border-gray-200 my-1" />
-                    <button
-                      onClick={logout}
-                      className="flex items-center gap-2 w-full px-3 py-2 text-sm text-danger hover:bg-danger-bg rounded-lg transition-colors"
-                    >
-                      {Icons.logout} Sign out
-                    </button>
+                     </div>
                   </motion.div>
                 )}
               </AnimatePresence>
             </div>
-          ) : (
-            <Link to="/login" className="btn-primary text-sm py-2">
-              Sign In
-            </Link>
-          )}
+          ) : null}
         </div>
       </div>
     </header>
