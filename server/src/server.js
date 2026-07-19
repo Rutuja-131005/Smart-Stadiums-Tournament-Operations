@@ -16,7 +16,6 @@ import logger from './utils/logger.js';
 import { errorHandler, notFound } from './middleware/errorHandler.js';
 import initializeSocket from './sockets/index.js';
 
-import authRoutes from './routes/authRoutes.js';
 import stadiumRoutes from './routes/stadiumRoutes.js';
 import matchRoutes from './routes/matchRoutes.js';
 import crowdRoutes from './routes/crowdRoutes.js';
@@ -167,7 +166,18 @@ app.use('/api', (req, res, next) => {
   next();
 });
 
-app.use('/api/auth', authRoutes);
+// --- Global Mock User Middleware ---
+app.use((req, res, next) => {
+  req.user = {
+    _id: '660000000000000000000001',
+    name: 'Tournament Administrator',
+    email: 'admin@worldcup2026.com',
+    role: 'admin',
+    isActive: true
+  };
+  next();
+});
+
 app.use('/api/stadiums', stadiumRoutes);
 app.use('/api/matches', matchRoutes);
 app.use('/api/crowd', crowdRoutes);
