@@ -6,8 +6,6 @@ import LoadingSpinner from './components/common/LoadingSpinner';
 
 // ── Lazy-loaded page components (route-based code splitting) ──────────────
 const Landing = lazy(() => import('./pages/Landing'));
-const Login = lazy(() => import('./pages/Login'));
-const Register = lazy(() => import('./pages/Register'));
 const Home = lazy(() => import('./pages/Home'));
 const FanDashboard = lazy(() => import('./pages/FanDashboard'));
 const Navigation = lazy(() => import('./pages/Navigation'));
@@ -42,8 +40,6 @@ function App() {
         <Routes>
           {/* Landing and Auth routes */}
           <Route path="/" element={user ? <Navigate to="/dashboard" replace /> : <Landing />} />
-          <Route path="/login" element={<Navigate to="/dashboard" replace />} />
-          <Route path="/register" element={<Navigate to="/dashboard" replace />} />
 
           {/* Dashboard Layout wrapped routes */}
           <Route element={<Layout />}>
