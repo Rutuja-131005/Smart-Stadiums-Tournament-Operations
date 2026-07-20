@@ -3,7 +3,7 @@
 
 An AI-powered operational intelligence platform that enables organizers to manage stadiums more efficiently while enhancing fan experience through Generative AI, real-time analytics, geospatial intelligence, and predictive decision support.
 
-🌐 **Live Deployed Platform:** [https://smart-stadiums-tournament-operations-1ylm-jpqem3xng.vercel.app/](https://smart-stadiums-tournament-operations-1ylm-jpqem3xng.vercel.app/)
+🌐 **Live Deployed Platform:** [https://smart-stadiums-tournament-operation-bay.vercel.app/](https://smart-stadiums-tournament-operation-bay.vercel.app/)
 
 ---
 
@@ -90,7 +90,7 @@ Google Gemini powers intelligent workflows across the platform:
 Users (Fans • Staff • Volunteers • Security • Organizers)
                          │
       React + Tailwind + Leaflet + Chart.js
-         Socket.IO + JWT Authentication
+         Socket.IO + Simulated Role Switcher
                          │
                Node.js + Express
                 Google Gemini AI
@@ -113,7 +113,6 @@ Users (Fans • Staff • Volunteers • Security • Organizers)
 ### Backend
 * Node.js
 * Express.js
-* JWT
 * Helmet
 * Socket.IO
 
@@ -137,7 +136,7 @@ Unlike traditional dashboards that only visualize information, our platform unde
 * Unified command center for all stakeholders
 
 ## ⚡ Engineering Highlights
-* Secure Role-Based Authentication
+* Open Accessible Simulated Role Switcher
 * Real-Time WebSocket Communication
 * Geospatial Database Indexing
 * Route-Based Code Splitting
@@ -175,7 +174,7 @@ The project is fully configured for deployment from the repository root on **Ver
    - `GEMINI_API_KEY`: Your Google Gemini API key (required).
    - `JWT_SECRET`: A secret key for JWT token signature (required).
 
-**Live Deployed Platform:** [https://smart-stadiums-tournament-operations-1ylm-jpqem3xng.vercel.app/](https://smart-stadiums-tournament-operations-1ylm-jpqem3xng.vercel.app/)
+**Live Deployed Platform:** [https://smart-stadiums-tournament-operation-bay.vercel.app/](https://smart-stadiums-tournament-operation-bay.vercel.app/)
 
 ## 🔮 Future Scope
 * Indoor AR Navigation
