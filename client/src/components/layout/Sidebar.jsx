@@ -3,7 +3,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { Icons, navItems } from './Icons';
 
 export default function Sidebar({ sidebarOpen, setSidebarOpen, collapsed, setCollapsed }) {
-  const { user, logout, hasRole } = useAuth();
+  const { user, logout, hasRole, switchRole } = useAuth();
   const location = useLocation();
 
   const filteredNav = navItems.filter((item) => !item.roles || hasRole(...item.roles));
@@ -82,7 +82,20 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen, collapsed, setCol
               </div>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium text-white truncate">{user.name}</p>
-                <p className="text-xs font-semibold capitalize text-fifa-gold">{user.role}</p>
+                <div className="flex items-center gap-1.5 mt-1">
+                  <span className="text-[10px] uppercase tracking-wider font-semibold text-white/50">Role:</span>
+                  <select
+                    value={user.role}
+                    onChange={(e) => switchRole(e.target.value)}
+                    className="bg-white/10 text-xs font-semibold text-fifa-gold rounded border border-white/20 px-1 py-0.5 outline-none cursor-pointer focus:border-fifa-gold"
+                  >
+                    <option value="admin" className="text-gray-900 font-semibold">Admin</option>
+                    <option value="staff" className="text-gray-900 font-semibold">Organizer</option>
+                    <option value="security" className="text-gray-900 font-semibold">Security</option>
+                    <option value="volunteer" className="text-gray-900 font-semibold">Volunteer</option>
+                    <option value="fan" className="text-gray-900 font-semibold">Fan</option>
+                  </select>
+                </div>
               </div>
             </div>
           )}

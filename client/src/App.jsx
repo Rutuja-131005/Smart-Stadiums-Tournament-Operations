@@ -18,11 +18,7 @@ const Notifications = lazy(() => import('./pages/Notifications'));
 const Reports = lazy(() => import('./pages/Reports'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
-const ProtectedRoute = ({ children, roles }) => {
-  const { user, loading, hasRole } = useAuth();
-  if (loading) return <LoadingSpinner fullScreen />;
-  if (!user) return <Navigate to="/" replace />;
-  if (roles && !hasRole(...roles)) return <Navigate to="/dashboard" replace />;
+const ProtectedRoute = ({ children }) => {
   return children;
 };
 
@@ -39,7 +35,7 @@ function App() {
       <Suspense fallback={<LoadingSpinner fullScreen />}>
         <Routes>
           {/* Landing and Auth routes */}
-          <Route path="/" element={user ? <Navigate to="/dashboard" replace /> : <Landing />} />
+          <Route path="/" element={<Landing />} />
 
           {/* Dashboard Layout wrapped routes */}
           <Route element={<Layout />}>

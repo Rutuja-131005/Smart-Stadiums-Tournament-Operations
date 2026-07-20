@@ -168,11 +168,40 @@ app.use('/api', (req, res, next) => {
 
 // --- Global Mock User Middleware ---
 app.use((req, res, next) => {
+  const simulatedRole = req.headers['x-simulated-role'] || 'admin';
+  
+  let role = 'admin';
+  let name = 'Tournament Administrator';
+  let email = 'admin@worldcup2026.com';
+  let _id = '660000000000000000000001';
+  
+  if (simulatedRole === 'staff') {
+    role = 'staff';
+    name = 'Command Center Staff';
+    email = 'staff@worldcup2026.com';
+    _id = '660000000000000000000002';
+  } else if (simulatedRole === 'security') {
+    role = 'security';
+    name = 'Security Officer';
+    email = 'security@worldcup2026.com';
+    _id = '660000000000000000000003';
+  } else if (simulatedRole === 'volunteer') {
+    role = 'volunteer';
+    name = 'Event Volunteer';
+    email = 'volunteer@worldcup2026.com';
+    _id = '660000000000000000000004';
+  } else if (simulatedRole === 'fan') {
+    role = 'fan';
+    name = 'Stadium Fan';
+    email = 'fan@worldcup2026.com';
+    _id = '660000000000000000000005';
+  }
+
   req.user = {
-    _id: '660000000000000000000001',
-    name: 'Tournament Administrator',
-    email: 'admin@worldcup2026.com',
-    role: 'admin',
+    _id,
+    name,
+    email,
+    role,
     isActive: true
   };
   next();

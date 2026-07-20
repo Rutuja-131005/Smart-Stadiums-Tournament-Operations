@@ -75,25 +75,54 @@ const seedDatabase = async () => {
 
   const [metlife, azteca, bcplace] = stadiums;
 
-  const demoAccounts = [...getDemoAccounts()];
+  const adminId = new mongoose.Types.ObjectId('660000000000000000000001');
+  const organizerId = new mongoose.Types.ObjectId('660000000000000000000002');
+  const securityId = new mongoose.Types.ObjectId('660000000000000000000003');
+  const volunteerId = new mongoose.Types.ObjectId('660000000000000000000004');
+  const fanId = new mongoose.Types.ObjectId('660000000000000000000005');
 
-  const users = await Promise.all(
-    demoAccounts.map((account, idx) =>
-      User.create({
-        name: account.name,
-        email: account.email,
-        password: account.password,
-        role: account.role,
-        preferredLanguage: account.preferredLanguage || 'en',
-        ...(idx < 4 && { assignedStadium: metlife._id }),
-      })
-    )
-  );
-
-  const organizerId = users[1]?._id || new mongoose.Types.ObjectId();
-  const securityId = users[2]?._id || new mongoose.Types.ObjectId();
-  const volunteerId = users[3]?._id || new mongoose.Types.ObjectId();
-  const fanId = users[4]?._id || new mongoose.Types.ObjectId();
+  await User.insertMany([
+    {
+      _id: adminId,
+      name: 'Tournament Administrator',
+      email: 'admin@worldcup2026.com',
+      password: 'password123',
+      role: 'admin',
+      assignedStadium: metlife._id
+    },
+    {
+      _id: organizerId,
+      name: 'Command Center Staff',
+      email: 'staff@worldcup2026.com',
+      password: 'password123',
+      role: 'staff',
+      assignedStadium: metlife._id
+    },
+    {
+      _id: securityId,
+      name: 'Security Officer',
+      email: 'security@worldcup2026.com',
+      password: 'password123',
+      role: 'security',
+      assignedStadium: metlife._id
+    },
+    {
+      _id: volunteerId,
+      name: 'Event Volunteer',
+      email: 'volunteer@worldcup2026.com',
+      password: 'password123',
+      role: 'volunteer',
+      assignedStadium: metlife._id
+    },
+    {
+      _id: fanId,
+      name: 'Stadium Fan',
+      email: 'fan@worldcup2026.com',
+      password: 'password123',
+      role: 'fan',
+      assignedStadium: metlife._id
+    }
+  ]);
 
   const matches = await Match.insertMany([
     {

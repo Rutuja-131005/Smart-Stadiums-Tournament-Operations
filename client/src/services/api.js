@@ -7,6 +7,12 @@ const api = axios.create({
   headers: { 'Content-Type': 'application/json' },
 });
 
+api.interceptors.request.use((config) => {
+  const role = localStorage.getItem('simulated_role') || 'admin';
+  config.headers['X-Simulated-Role'] = role;
+  return config;
+});
+
 export const authAPI = {
   updateAccessibility: (data) => Promise.resolve({ data: { success: true } }),
   updateLanguage: (lang) => Promise.resolve({ data: { success: true } }),
